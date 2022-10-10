@@ -49,7 +49,7 @@ def prepareCSV_newSystem(filename):
                                  "liczba", "bł1", "poz%", "perf%", # Przyjęcie zagrywki
                                  "liczba1", "bł2", "blok", "Pkt", "skut%", "eff%1", # Atak
                                  "pkt", "wyblok", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania" # Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon"# Inne
                                  ])
 
     #try:
@@ -68,7 +68,7 @@ def prepareCSV_oldSystem(fileName):
                                  "liczba", "bł1", "Neg", "Poz", "poz%", "Perf", "perf%", # Przyjęcie zagrywki
                                  "liczba1", "bł2", "blok", "Perf1", "% perf", # Atak
                                  "pkt", "Pkt na set", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania" # Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon" # Inne
                                  ])
 
     #try:
