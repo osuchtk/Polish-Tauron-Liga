@@ -7,12 +7,6 @@ from collections import Counter
 ########################################################################################################################
 # zwracana jest lista z linkami, które prowadzą do poszczególnych meczów
 def getMatchesLinks(searchURL):
-    # searchURL2021_2022 = "https://www.tauronliga.pl/games/tour/2021.html"
-    # searchURL2020_2021 = "https://www.tauronliga.pl/games/tour/2020.html"
-    # searchURL2019_2020 = "https://www.tauronliga.pl/games/tour/2019.html"
-    # searchURL2018_2019 = "https://www.tauronliga.pl/games/tour/2018.html"
-    # searchURL = [searchURL2018_2019, searchURL2019_2020, searchURL2020_2021, searchURL2021_2022]
-
     links = []
     for i in searchURL:
         page = urlopen(i)
@@ -36,5 +30,5 @@ def getMatchesLinks(searchURL):
             f.write(str(link))
             f.write("\n")
 
-    print("Pobrano linki do wszystkich meczów sezonów 2020/2021 i 2021/2022.\nPobrano łącznie ", len(links), " linków.")
+    print("Pobrano linki do wszystkich meczów zadanego przedziału.\nPobrano łącznie ", len(links), " linków do meczy.")
     return links

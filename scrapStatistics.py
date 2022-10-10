@@ -4,12 +4,11 @@ from bs4 import BeautifulSoup
 from getStatistics import getStats
 
 
-def scrapStatiscics(links, newSystemFileName, oldSystemFileName):
-    for index, i in enumerate(links):
+def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
+    for index, i in enumerate(searachURLsList):
         i = i.rstrip('\n')
         searchURL = "https://www.tauronliga.pl/" + i
         page = urlopen(searchURL)
-
         soup = BeautifulSoup(page, "lxml")
 
         # pobranie statystyk dla nowego systemu
@@ -19,9 +18,9 @@ def scrapStatiscics(links, newSystemFileName, oldSystemFileName):
 
             # zapisanie statystyk do pliku
             try:
-                statystykiZespol1.to_csv('CSV/' + newSystemFileName, mode='a', index=False, encoding='windows-1250',
+                statystykiZespol1.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
                                          sep=";", header=False)
-                statystykiZespol2.to_csv('CSV/' + newSystemFileName, mode='a', index=False, encoding='windows-1250',
+                statystykiZespol2.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
                                          sep=";", header=False)
 
             except AttributeError:
@@ -34,13 +33,14 @@ def scrapStatiscics(links, newSystemFileName, oldSystemFileName):
 
             # zapisanie statystyk do pliku
             try:
-                statystykiZespol1.to_csv('CSV/' + oldSystemFileName, mode='a', index=False, encoding='windows-1250',
+                statystykiZespol1.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
                                          sep=";", header=False)
-                statystykiZespol2.to_csv('CSV/' + oldSystemFileName, mode='a', index=False, encoding='windows-1250',
+                statystykiZespol2.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
                                          sep=";", header=False)
 
             except AttributeError:
                 pass
 
+        # wypisywanie postępów pobierania statystyk
         if index % 20 == 1:
-            print("Pobranie statystyk meczowych...", index, "/", len(links))
+            print("Pobranie statystyk meczowych...", index, "/", len(searachURLsList))
