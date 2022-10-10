@@ -1,3 +1,6 @@
+########################################################################################################################
+### PLIK Z UŻYTECZNYMI, ALE NIE KLUCZOWYMI FUNKCJAMI ###################################################################
+########################################################################################################################
 # lista linków do pobierania list zawodniczek
 def playerListLinks(start, end):
     period = range(start, end + 1, 1)
@@ -20,5 +23,7 @@ def matchesListLinks(start, end):
         searchURLs.append("https://www.tauronliga.pl/games/tour/{}.html".format(year))
 
     return searchURLs
+
+
 
 
