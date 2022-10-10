@@ -1,5 +1,5 @@
 ########################################################################################################################
-### PLIK Z UŻYTECZNYMI, ALE NIE KLUCZOWYMI FUNKCJAMI ###################################################################
+### PLIK Z WAŻNYMI #####################################################################################################
 ########################################################################################################################
 import pandas as pd
 
@@ -29,8 +29,7 @@ def matchesListLinks(start, end):
 
 # nagłówki do pliku z nazwiskami i linkami do zdjęć zawodniczek
 def prepareCSV_surnamePhotos(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Link"
-                                 ])
+    df = pd.DataFrame(columns = ["Nazwisko", "Link", "Sezon"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
