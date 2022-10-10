@@ -2,35 +2,46 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import time
 
-from pobranieStatystyk import prepareCSV_newSystem, prepareCSV_oldSystem, getStats
-from linkiZawodniczki_Zdjecia import getLastname_PhotoLinks
-from pobieranieLinkowDoMeczow import getMatchesLinks
+from getStatistics import prepareCSV_newSystem, prepareCSV_oldSystem, getStats
+from getLinksToPlayersPhotos import getLastnamePhotoLinks
+from getLinksToMatches import getMatchesLinks
+from usefulFunctions import playerListLinks, matchesListLinks
 
 # początek pomiaru czasu w celach statystycznych
-czasPoczatek = time.time()
+timeStart = time.time()
+
+# deklaracja przedziału czaswoego dla którego pobierane są dane
+start = 2018
+end = 2021
+
+# stworzenie zakresu lat i odpowiednich linków
+playerListLinksURLs = playerListLinks(start, end)
+
+# pobranie linków do wszystkich meczów w sezonie
+matchesListLinksURLs = matchesListLinks(start, end)
 
 # pobranie nazwisk zawodniczek i linków do zdjęć
-getLastname_PhotoLinks()
+getLastnamePhotoLinks(playerListLinksURLs)
 
 ########################################################################################################################
 ### ODZYSKANIE LINKÓW Z PLIKÓW TEKSTOWYCH ##############################################################################
 ########################################################################################################################
-links = []
+#links = []
 # photoLinks = []
 # with open('matchLinks2020_2021.txt', 'r') as f:
 #     for link in f:
 #         links.append(link)
-links = getMatchesLinks()
+links = getMatchesLinks(matchesListLinksURLs)
 
 
 ########################################################################################################################
 ### PRZYGOTOWANIE NAGŁÓWKÓW DO PLIKU ZE STATYSTYKAMI ###################################################################
 ########################################################################################################################
-starySystemNazwaPliku = "statystyki_SEZONY_STARE.csv"
-nowySystemNazwaPliku = "statystyki_SEZONY_NOWE.csv"
+oldSystemFileName = "statystyki_SEZONY_STARE.csv"
+newSystemFileName = "statystyki_SEZONY_NOWE.csv"
 
-prepareCSV_oldSystem(starySystemNazwaPliku)
-prepareCSV_newSystem(nowySystemNazwaPliku)
+prepareCSV_oldSystem(oldSystemFileName)
+prepareCSV_newSystem(newSystemFileName)
 
 ########################################################################################################################
 ### ITERACJA PO LINKACH Z PLIKU ########################################################################################
@@ -49,8 +60,8 @@ for index, i in enumerate(links):
 
         # zapisanie statystyk do pliku
         try:
-            statystykiZespol1.to_csv('CSV/' + nowySystemNazwaPliku, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
-            statystykiZespol2.to_csv('CSV/' + nowySystemNazwaPliku, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+            statystykiZespol1.to_csv('CSV/' + newSystemFileName, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+            statystykiZespol2.to_csv('CSV/' + newSystemFileName, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
         except AttributeError:
             pass
@@ -62,8 +73,8 @@ for index, i in enumerate(links):
 
         # zapisanie statystyk do pliku
         try:
-            statystykiZespol1.to_csv('CSV/' + starySystemNazwaPliku, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
-            statystykiZespol2.to_csv('CSV/' + starySystemNazwaPliku, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+            statystykiZespol1.to_csv('CSV/' + oldSystemFileName, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+            statystykiZespol2.to_csv('CSV/' + oldSystemFileName, mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
         except AttributeError:
             pass
@@ -72,6 +83,6 @@ for index, i in enumerate(links):
         print("Pobranie statystyk meczowych...", index, "/", len(links))
 
 # koniec pomiaru czasu w celach statystycznych
-czasKoniec = time.time()
-czas = czasKoniec - czasPoczatek
+timeEnd = time.time()
+czas = timeEnd - timeStart
 print("Czas wykonywania: ", czas, 'sekund')

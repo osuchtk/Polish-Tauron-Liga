@@ -5,7 +5,7 @@ import os
 ### PRZYGOTOWANIE NAGŁÓWKÓW DO PLIKU ZE STATYSTYKAMI ###################################################################
 ########################################################################################################################
 # zwracany jest plik CSV, który posiada zdefiniowane nagłówki
-def prepareCSV_newSystem(nazwaPliku):
+def prepareCSV_newSystem(fileName):
     df = pd.DataFrame(columns = ["I", "II", "III", "IV", "V", "GS", # Set
                                  "suma", "BP", "z-s", # Punkty
                                  "Liczba", "bł", "as", "eff%", # Zagrywka
@@ -17,7 +17,7 @@ def prepareCSV_newSystem(nazwaPliku):
 
     #try:
     #    print("Stworzono szkielet pliku CSV ze statystykami w nowym systemie.")
-    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+    return df.to_csv('CSV/' + fileName, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
     #except FileExistsError:
     #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV ze statystykami w starym systemie.")
@@ -25,7 +25,7 @@ def prepareCSV_newSystem(nazwaPliku):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
-def prepareCSV_oldSystem(nazwaPliku):
+def prepareCSV_oldSystem(fileName):
     df = pd.DataFrame(columns = ["I", "II", "III", "IV", "V", "Punkty", # punkty - sety
                                  "Liczba", "as", "bł", "Asy na set", # Zagrywka
                                  "liczba", "bł1", "Neg", "Poz", "poz%", "Perf", "perf%", # Przyjęcie zagrywki
@@ -36,7 +36,7 @@ def prepareCSV_oldSystem(nazwaPliku):
 
     #try:
     #    print("Stworzono szkielet pliku CSV ze statystykami w starym systemie.")
-    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+    return df.to_csv('CSV/' + fileName, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
     #except FileExistsError:
     #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV ze statystykami w starym systemie.")
@@ -52,54 +52,54 @@ def prepareCSV_oldSystem(nazwaPliku):
 # funkcja przyjmuje link do danego spotkania
 # funkcja przyjmuje wartość string: "new" lub "old", który określa system tworzenia statystyk
 # zwracany jest wypełniony dataframe dla jednego z klubów, które rozgrywały dany mecz
-def getStats(indeks, soup, system):
-    dane = []
+def getStats(index, soup, systemVersion):
+    data = []
     allData = pd.DataFrame()
 
     # tworzenie unikalnego klucza z daty spotkania, drużyn oraz wyniku
     # iteracja po linkach w danym meczu
-    druzyny = []
-    for mecz in soup.findAll('a'):
-        if "/teams/id/" in str(mecz.get('href')):
-            druzyny.append(mecz.text)
+    teams = []
+    for match in soup.findAll('a'):
+        if "/teams/id/" in str(match.get('href')):
+            teams.append(match.text)
 
-    druzyna1 = druzyny[0]
-    druzyna2 = druzyny[3]
+    team1 = teams[0]
+    team2 = teams[3]
 
-    wynikOgolny = soup.select('.gameresult')[-1].text.replace('\n', '')
-    wynik1 = wynikOgolny[0]
-    wynik2 = wynikOgolny[-1]
+    resultGeneral = soup.select('.gameresult')[-1].text.replace('\n', '')
+    result1 = resultGeneral[0]
+    result2 = resultGeneral[-1]
 
-    dataSpotkania = soup.select('.date')[-1].text
+    matchDate = soup.select('.date')[-1].text
 
-    klucz = dataSpotkania[:-7] + druzyna1 + "-" + wynik1 + ":" + wynik2 + "-" + druzyna2
+    key = matchDate[:-7] + team1 + "-" + result1 + ":" + result2 + "-" + team2
 
     ####################################################################################################################
     # BEZPOŚREDNIE STATYSTYKI
 
     # nowy system statystyk wprowadzony od sezonu 2020/2021
-    if system == "new":
+    if systemVersion == "new":
         try:
-            statystykiDruzyna1 = soup.select(".rs-standings-table")[indeks]
+            statsTeam1 = soup.select(".rs-standings-table")[index]
 
             # zbieranie nagłówków
-            for columnName in statystykiDruzyna1.find_all('th'):
+            for columnName in statsTeam1.find_all('th'):
                 title = columnName.text.replace('\n', '').replace('\xa0', '')
-                dane.append(title)
+                data.append(title)
 
             # if w celu obsłużenia przypadku kiedy był rozgrywany złoty set
             # przycięcie liczby nagłówków w celu pominięcia pustych komórek i obszarów gry (przycięcie od początku)
             # umieszczenie nazwisk w osobnej liście
-            if "GS" in dane:
-                naglowki = dane[8:33]
-                nazwiska = dane[33:]
+            if "GS" in data:
+                headers = data[8:33]
+                surnames = data[33:]
             else:
-                naglowki = dane[8:32]
-                nazwiska = dane[32:]
+                headers = data[8:32]
+                surnames = data[32:]
 
             # przypisanie nagłówków do kolumn
-            df = pd.DataFrame(columns=naglowki)
-            allData = pd.DataFrame(columns=naglowki)
+            df = pd.DataFrame(columns=headers)
+            allData = pd.DataFrame(columns=headers)
             #
             # dodanie indeksów do powtarzających się nagłówków
             temp = pd.Series(df.columns)
@@ -108,7 +108,7 @@ def getStats(indeks, soup, system):
             temp = pd.Series(allData.columns)
             allData.columns = allData.columns + temp.groupby(temp).cumcount().replace(0, '').astype(str)
 
-            for j in statystykiDruzyna1.find_all('tr')[2:-1]:
+            for j in statsTeam1.find_all('tr')[2:-1]:
                 row_data = j.find_all('td')
                 row = [k.text for k in row_data]
                 length = len(df)
@@ -120,45 +120,46 @@ def getStats(indeks, soup, system):
             if "GS" not in allData.columns:
                 allData.insert(5, "GS", "-")
 
-            klubLista = []
-            kluczLista = []
-            dataSpotkaniaLista = []
+            # przygotowanie list na statystyki spoza tabeli
+            clubList = []
+            keyList = []
+            matchDateList = []
             for i in range(len(allData)):
-                klubLista.append(druzyna1)
-                kluczLista.append(klucz)
-                dataSpotkaniaLista.append(dataSpotkania)
+                clubList.append(team1)
+                keyList.append(key)
+                matchDateList.append(matchDate)
 
-            # dodanie do statystyk nazwiska zawodniczki, klubu oraz daty spotkania
-            allData.insert(len(allData.columns), 'Nazwisko', nazwiska)
-            allData.insert(len(allData.columns), 'Klub', klubLista)
-            allData.insert(len(allData.columns), 'Klucz', kluczLista)
-            allData.insert(len(allData.columns), 'Data Spotkania', dataSpotkaniaLista)
+            # dodanie do statystyk surnames zawodniczki, klubu oraz daty spotkania
+            allData.insert(len(allData.columns), 'Nazwisko', surnames)
+            allData.insert(len(allData.columns), 'Klub', clubList)
+            allData.insert(len(allData.columns), 'Klucz', keyList)
+            allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
 
             return allData
 
         except IndexError:
-            print("Mecz bez statystyk. " + klucz)
+            print("Mecz bez statystyk. " + key)
 
 
     # stary system statystyk przez sezonem 2020/2021
-    if system == "old":
+    if systemVersion == "old":
         try:
-            statystykiDruzyna1 = soup.select(".rs-standings-table")[indeks]
+            statsTeam1 = soup.select(".rs-standings-table")[index]
 
             # zbieranie nagłówków
-            for columnName in statystykiDruzyna1.find_all('th'):
+            for columnName in statsTeam1.find_all('th'):
                 title = columnName.text.replace('\n', '').replace('\xa0', '')
-                dane.append(title)
+                data.append(title)
 
             # if w celu obsłużenia przypadku kiedy był rozgrywany złoty set
             # przycięcie liczby nagłówków w celu pominięcia pustych komórek i obszarów gry (przycięcie od początku)
             # umieszczenie nazwisk w osobnej liście
-            naglowki = dane[7:31]
-            nazwiska = dane[31:]
+            headers = data[7:31]
+            surnames = data[31:]
 
             # przypisanie nagłówków do kolumn
-            df = pd.DataFrame(columns=naglowki)
-            allData = pd.DataFrame(columns=naglowki)
+            df = pd.DataFrame(columns=headers)
+            allData = pd.DataFrame(columns=headers)
             #
             # dodanie indeksów do powtarzających się nagłówków
             temp = pd.Series(df.columns)
@@ -167,28 +168,29 @@ def getStats(indeks, soup, system):
             temp = pd.Series(allData.columns)
             allData.columns = allData.columns + temp.groupby(temp).cumcount().replace(0, '').astype(str)
 
-            for j in statystykiDruzyna1.find_all('tr')[2:-1]:
+            for j in statsTeam1.find_all('tr')[2:-1]:
                 row_data = j.find_all('td')
                 row = [k.text for k in row_data]
                 length = len(df)
                 df.loc[length] = row
                 allData.loc[length] = row
 
-            klubLista = []
-            kluczLista = []
-            dataSpotkaniaLista = []
+            # przygotowanie list na statystyki spoza tabeli
+            clubList = []
+            keyList = []
+            matchDateList = []
             for i in range(len(allData)):
-                klubLista.append(druzyna1)
-                kluczLista.append(klucz)
-                dataSpotkaniaLista.append(dataSpotkania)
+                clubList.append(team1)
+                keyList.append(key)
+                matchDateList.append(matchDate)
 
-            # dodanie do statystyk nazwiska zawodniczki, klubu oraz daty spotkania
-            allData.insert(len(allData.columns), 'Nazwisko', nazwiska)
-            allData.insert(len(allData.columns), 'Klub', klubLista)
-            allData.insert(len(allData.columns), 'Klucz', kluczLista)
-            allData.insert(len(allData.columns), 'Data Spotkania', dataSpotkaniaLista)
+            # dodanie do statystyk surnames zawodniczki, klubu oraz daty spotkania
+            allData.insert(len(allData.columns), 'Nazwisko', surnames)
+            allData.insert(len(allData.columns), 'Klub', clubList)
+            allData.insert(len(allData.columns), 'Klucz', keyList)
+            allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
 
             return allData
 
         except IndexError:
-            print("Mecz bez statystyk. " + klucz)
+            print("Mecz bez statystyk. " + key)
