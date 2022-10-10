@@ -1,7 +1,0 @@
-25 play off
-6*22 zasadnicza
-
-157 suma
-
-normalnie liczba kolumn == 44
-przy złotym secie liczba kolumn == 46

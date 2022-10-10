@@ -56,6 +56,7 @@
 /statsPlayers/id/85550.html
 /statsPlayers/id/85549.html
 /statsPlayers/id/85722.html
+/statsPlayers/id/88253.html
 /statsPlayers/id/96057.html
 /statsPlayers/id/96132.html
 /statsPlayers/id/93749.html
@@ -67,7 +68,6 @@
 /statsPlayers/id/93963.html
 /statsPlayers/id/85622.html
 /statsPlayers/id/96016.html
-/statsPlayers/id/96013.html
 /statsPlayers/id/85651.html
 /statsPlayers/id/96014.html
 /statsPlayers/id/95991.html
@@ -81,6 +81,7 @@
 /statsPlayers/id/85674.html
 /statsPlayers/id/85669.html
 /statsPlayers/id/93732.html
+/statsPlayers/id/96013.html
 /statsPlayers/id/95931.html
 /statsPlayers/id/85769.html
 /statsPlayers/id/85559.html
@@ -99,6 +100,7 @@
 /statsPlayers/id/95905.html
 /statsPlayers/id/93738.html
 /statsPlayers/id/95915.html
+/statsPlayers/id/88258.html
 /statsPlayers/id/96107.html
 /statsPlayers/id/95633.html
 /statsPlayers/id/93632.html
@@ -134,7 +136,6 @@
 /statsPlayers/id/96122.html
 /statsPlayers/id/85707.html
 /statsPlayers/id/95643.html
-/statsPlayers/id/88258.html
 /statsPlayers/id/95781.html
 /statsPlayers/id/96091.html
 /statsPlayers/id/96104.html
@@ -151,7 +152,6 @@
 /statsPlayers/id/85569.html
 /statsPlayers/id/96085.html
 /statsPlayers/id/88270.html
-/statsPlayers/id/88253.html
 /statsPlayers/id/93689.html
 /statsPlayers/id/93781.html
 /statsPlayers/id/85811.html
@@ -238,6 +238,7 @@
 /statsPlayers/id/2165875.html
 /statsPlayers/id/85722.html
 /statsPlayers/id/93551.html
+/statsPlayers/id/88253.html
 /statsPlayers/id/96057.html
 /statsPlayers/id/2166065.html
 /statsPlayers/id/88256.html
@@ -247,7 +248,6 @@
 /statsPlayers/id/93963.html
 /statsPlayers/id/85622.html
 /statsPlayers/id/2165876.html
-/statsPlayers/id/96013.html
 /statsPlayers/id/2166066.html
 /statsPlayers/id/85651.html
 /statsPlayers/id/95991.html
@@ -270,6 +270,7 @@
 /statsPlayers/id/85674.html
 /statsPlayers/id/85669.html
 /statsPlayers/id/93732.html
+/statsPlayers/id/96013.html
 /statsPlayers/id/95931.html
 /statsPlayers/id/2165877.html
 /statsPlayers/id/85559.html
@@ -289,6 +290,7 @@
 /statsPlayers/id/95304.html
 /statsPlayers/id/93571.html
 /statsPlayers/id/95915.html
+/statsPlayers/id/88258.html
 /statsPlayers/id/95633.html
 /statsPlayers/id/93574.html
 /statsPlayers/id/2165874.html
@@ -318,7 +320,6 @@
 /statsPlayers/id/93971.html
 /statsPlayers/id/96122.html
 /statsPlayers/id/95643.html
-/statsPlayers/id/88258.html
 /statsPlayers/id/95781.html
 /statsPlayers/id/96104.html
 /statsPlayers/id/85594.html
@@ -326,13 +327,11 @@
 /statsPlayers/id/95989.html
 /statsPlayers/id/93735.html
 /statsPlayers/id/85583.html
-/statsPlayers/id/2165853.html
 /statsPlayers/id/85786.html
 /statsPlayers/id/85578.html
 /statsPlayers/id/95916.html
 /statsPlayers/id/85569.html
 /statsPlayers/id/2165864.html
-/statsPlayers/id/88253.html
 /statsPlayers/id/93689.html
 /statsPlayers/id/2165844.html
 /statsPlayers/id/2165856.html
@@ -340,6 +339,7 @@
 /statsPlayers/id/2166050.html
 /statsPlayers/id/85811.html
 /statsPlayers/id/85565.html
+/statsPlayers/id/2165853.html
 /statsPlayers/id/95755.html
 /statsPlayers/id/93958.html
 /statsPlayers/id/95973.html
@@ -374,8 +374,8 @@
 /statsPlayers/id/2166288.html
 /statsPlayers/id/95437.html
 /statsPlayers/id/95937.html
-/statsPlayers/id/93540.html
 /statsPlayers/id/2165974.html
+/statsPlayers/id/93540.html
 /statsPlayers/id/2166387.html
 /statsPlayers/id/2165845.html
 /statsPlayers/id/2166168.html
@@ -409,13 +409,13 @@
 /statsPlayers/id/85616.html
 /statsPlayers/id/2166398.html
 /statsPlayers/id/93551.html
-/statsPlayers/id/88263.html
+/statsPlayers/id/88253.html
 /statsPlayers/id/93749.html
 /statsPlayers/id/2166289.html
+/statsPlayers/id/88263.html
 /statsPlayers/id/93950.html
 /statsPlayers/id/93963.html
 /statsPlayers/id/2165949.html
-/statsPlayers/id/96013.html
 /statsPlayers/id/85651.html
 /statsPlayers/id/95991.html
 /statsPlayers/id/95635.html
@@ -433,6 +433,7 @@
 /statsPlayers/id/93568.html
 /statsPlayers/id/85669.html
 /statsPlayers/id/93732.html
+/statsPlayers/id/96013.html
 /statsPlayers/id/95931.html
 /statsPlayers/id/85769.html
 /statsPlayers/id/85559.html
@@ -454,6 +455,7 @@
 /statsPlayers/id/2165952.html
 /statsPlayers/id/93738.html
 /statsPlayers/id/95915.html
+/statsPlayers/id/88258.html
 /statsPlayers/id/2165874.html
 /statsPlayers/id/2166390.html
 /statsPlayers/id/95313.html
@@ -487,7 +489,6 @@
 /statsPlayers/id/85619.html
 /statsPlayers/id/85574.html
 /statsPlayers/id/2166392.html
-/statsPlayers/id/88258.html
 /statsPlayers/id/95781.html
 /statsPlayers/id/96104.html
 /statsPlayers/id/85594.html
@@ -498,18 +499,17 @@
 /statsPlayers/id/95934.html
 /statsPlayers/id/93735.html
 /statsPlayers/id/2165999.html
-/statsPlayers/id/2165853.html
 /statsPlayers/id/2166001.html
 /statsPlayers/id/95916.html
 /statsPlayers/id/93597.html
 /statsPlayers/id/85569.html
-/statsPlayers/id/88253.html
 /statsPlayers/id/2166171.html
 /statsPlayers/id/93689.html
 /statsPlayers/id/2165844.html
 /statsPlayers/id/2166393.html
 /statsPlayers/id/85811.html
 /statsPlayers/id/85565.html
+/statsPlayers/id/2165853.html
 /statsPlayers/id/93620.html
 /statsPlayers/id/95755.html
 /statsPlayers/id/95932.html
@@ -558,8 +558,8 @@
 /statsPlayers/id/2167659.html
 /statsPlayers/id/96058.html
 /statsPlayers/id/2165973.html
-/statsPlayers/id/93540.html
 /statsPlayers/id/2165974.html
+/statsPlayers/id/93540.html
 /statsPlayers/id/2166168.html
 /statsPlayers/id/2167669.html
 /statsPlayers/id/2166172.html
@@ -594,14 +594,14 @@
 /statsPlayers/id/85616.html
 /statsPlayers/id/2166398.html
 /statsPlayers/id/93551.html
-/statsPlayers/id/88263.html
+/statsPlayers/id/88253.html
 /statsPlayers/id/2166157.html
 /statsPlayers/id/93749.html
 /statsPlayers/id/96105.html
 /statsPlayers/id/2168360.html
+/statsPlayers/id/88263.html
 /statsPlayers/id/93950.html
 /statsPlayers/id/93963.html
-/statsPlayers/id/96013.html
 /statsPlayers/id/95991.html
 /statsPlayers/id/95635.html
 /statsPlayers/id/93743.html
@@ -614,6 +614,7 @@
 /statsPlayers/id/2166004.html
 /statsPlayers/id/85669.html
 /statsPlayers/id/93732.html
+/statsPlayers/id/96013.html
 /statsPlayers/id/95931.html
 /statsPlayers/id/85769.html
 /statsPlayers/id/85559.html
@@ -630,6 +631,7 @@
 /statsPlayers/id/95904.html
 /statsPlayers/id/2165937.html
 /statsPlayers/id/93738.html
+/statsPlayers/id/88258.html
 /statsPlayers/id/2167676.html
 /statsPlayers/id/2166390.html
 /statsPlayers/id/2165914.html
@@ -666,7 +668,6 @@
 /statsPlayers/id/2165916.html
 /statsPlayers/id/2167402.html
 /statsPlayers/id/2165997.html
-/statsPlayers/id/88258.html
 /statsPlayers/id/95781.html
 /statsPlayers/id/85594.html
 /statsPlayers/id/93561.html
@@ -678,13 +679,12 @@
 /statsPlayers/id/95934.html
 /statsPlayers/id/93735.html
 /statsPlayers/id/2165999.html
-/statsPlayers/id/2165853.html
 /statsPlayers/id/2166001.html
 /statsPlayers/id/95916.html
 /statsPlayers/id/85569.html
-/statsPlayers/id/88253.html
 /statsPlayers/id/2166171.html
 /statsPlayers/id/85811.html
+/statsPlayers/id/2165853.html
 /statsPlayers/id/95755.html
 /statsPlayers/id/95932.html
 /statsPlayers/id/85582.html

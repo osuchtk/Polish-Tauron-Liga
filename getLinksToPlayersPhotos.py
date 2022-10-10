@@ -9,6 +9,7 @@ def getLastnamePhotoLinks(searchURL, filename):
     links = []
     photoLinks = []
     playernameList = []
+    season = []
     for i in searchURL:
         page = urlopen(i)
         soup = BeautifulSoup(page, "lxml")
@@ -16,18 +17,21 @@ def getLastnamePhotoLinks(searchURL, filename):
         # przeszukiwanie wszystkich linków na stronie w celu znalezienia tych, które spełniają kryteria
         for id, link in enumerate(soup.findAll('a')):
             if "/statsPlayers/id/" in str(link.get('href')):
-                try:
-                    if id % 2 == 0:
-                        links.append(link['href'])
-                    else:
+                if id % 2 == 0:
+                    links.append(link['href'])
+                else:
+                    try:
                         photo = link.find('img')['src']
                         photoLinks.append(photo)
-                        nazwisko = link.find('img')['alt']
-                        playernameList.append(nazwisko)
-                except TypeError:
-                    photoLinks.append("ebebeb")
+                        surname = link.find('img')['alt']
+                        playernameList.append(surname)
+                    except TypeError:
+                        photoLinks.append("//img.women.siatkarskaliga.pl/player_400.png")
 
-    df = pd.DataFrame(data = [playernameList, photoLinks])
+                    seasonValue = str(i[52:56]) + "/" + str(int(i[52:56]) + 1)
+                    season.append(seasonValue)
+
+    df = pd.DataFrame(data = [playernameList, photoLinks, season])
     df = df.T
     df.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
