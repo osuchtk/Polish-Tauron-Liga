@@ -1,10 +1,11 @@
+########################################################################################################################
+### POBRANIE NAZWISK, ZDJĘĆ I LINKÓW DO PROFILI ZAWODNICZEK ############################################################
+########################################################################################################################
 import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-########################################################################################################################
-### POBRANIE LINKÓW DO WSZYSTKICH ZAWODNICZEK SEZONÓW 2020/2021 I 2021/2022 I ZDJĘĆ ####################################
-########################################################################################################################
+
 def getLastnamePhotoLinks(searchURL, filename):
     linksAll = []
     linksValid = []
@@ -48,4 +49,4 @@ def getLastnamePhotoLinks(searchURL, filename):
     #         f.write(str(link))
     #         f.write("\n")
 
-    print("Pobrano linki do indywidualnych profilów zawodniczek.\nStworzono plik z nazwiskami oraz linkami do zdjęć.")
+    print("Pobrano nazwiska zawodniczek,linki do indywidualnych profilów zawodniczek oraz zdjęć.")

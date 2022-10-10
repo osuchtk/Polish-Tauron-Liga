@@ -1,16 +1,9 @@
-import pandas as pd
-import os
-
-########################################################################################################################
-### PRZYGOTOWANIE NAGŁÓWKÓW DO PLIKU ZE STATYSTYKAMI ###################################################################
-########################################################################################################################
-# zwracany jest plik CSV, który posiada zdefiniowane nagłówki
-
-
-
 ########################################################################################################################
 ### POBRANIE TABEL ZE STATYSTYKAMI #####################################################################################
 ########################################################################################################################
+import pandas as pd
+import os
+
 # funkcja przyjmuje indeks (0, 1) - jest to indeks tabeli zespołu który nas interesuje: 0 -> pierwszy od góry, 1 - drugi od góry
 # funkcja przyjmuje link do danego spotkania
 # funkcja przyjmuje wartość string: "new" lub "old", który określa system tworzenia statystyk
@@ -35,6 +28,10 @@ def getStats(index, soup, systemVersion):
     matchDate = soup.select('.date')[-1].text
 
     key = matchDate[:-7] + team1 + "-" + result1 + ":" + result2 + "-" + team2
+
+    # dodanie wartości sezonu
+    season = matchDate.split(',')[0].split('.', 2)[2]
+    seasonValue = str(season) + "/" + str(int(season) + 1)
 
     ####################################################################################################################
     # BEZPOŚREDNIE STATYSTYKI
@@ -62,7 +59,7 @@ def getStats(index, soup, systemVersion):
             # przypisanie nagłówków do kolumn
             df = pd.DataFrame(columns=headers)
             allData = pd.DataFrame(columns=headers)
-            #
+
             # dodanie indeksów do powtarzających się nagłówków
             temp = pd.Series(df.columns)
             df.columns = df.columns + temp.groupby(temp).cumcount().replace(0, '').astype(str)
@@ -82,20 +79,24 @@ def getStats(index, soup, systemVersion):
             if "GS" not in allData.columns:
                 allData.insert(5, "GS", "-")
 
+
             # przygotowanie list na statystyki spoza tabeli
             clubList = []
             keyList = []
             matchDateList = []
+            seasonList = []
             for i in range(len(allData)):
                 clubList.append(team1)
                 keyList.append(key)
                 matchDateList.append(matchDate)
+                seasonList.append(seasonValue)
 
-            # dodanie do statystyk surnames zawodniczki, klubu oraz daty spotkania
+            # dodanie do statystyk nazwisk zawodniczek, klubu oraz daty spotkania
             allData.insert(len(allData.columns), 'Nazwisko', surnames)
             allData.insert(len(allData.columns), 'Klub', clubList)
             allData.insert(len(allData.columns), 'Klucz', keyList)
             allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
+            allData.insert(len(allData.columns), 'Sezon', seasonList)
 
             return allData
 
@@ -137,20 +138,24 @@ def getStats(index, soup, systemVersion):
                 df.loc[length] = row
                 allData.loc[length] = row
 
+
             # przygotowanie list na statystyki spoza tabeli
             clubList = []
             keyList = []
             matchDateList = []
+            seasonList = []
             for i in range(len(allData)):
                 clubList.append(team1)
                 keyList.append(key)
                 matchDateList.append(matchDate)
+                seasonList.append(seasonValue)
 
-            # dodanie do statystyk surnames zawodniczki, klubu oraz daty spotkania
+            # dodanie do statystyk nazwisk zawodniczek, klubu oraz daty spotkania
             allData.insert(len(allData.columns), 'Nazwisko', surnames)
             allData.insert(len(allData.columns), 'Klub', clubList)
             allData.insert(len(allData.columns), 'Klucz', keyList)
             allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
+            allData.insert(len(allData.columns), 'Sezon', seasonList)
 
             return allData
 

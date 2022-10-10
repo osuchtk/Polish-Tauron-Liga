@@ -18,10 +18,10 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
 
             # zapisanie statystyk do pliku
             try:
-                statystykiZespol1.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
-                                         sep=";", header=False)
-                statystykiZespol2.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
-                                         sep=";", header=False)
+                statystykiZespol1.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False,
+                                         encoding='windows-1250', sep=";", header=False)
+                statystykiZespol2.to_csv('CSV/' + newSystemFileName + '.csv', mode='a', index=False,
+                                         encoding='windows-1250', sep=";", header=False)
 
             except AttributeError:
                 pass
@@ -33,14 +33,14 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
 
             # zapisanie statystyk do pliku
             try:
-                statystykiZespol1.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
-                                         sep=";", header=False)
-                statystykiZespol2.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False, encoding='windows-1250',
-                                         sep=";", header=False)
+                statystykiZespol1.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False,
+                                         encoding='windows-1250', sep=";", header=False)
+                statystykiZespol2.to_csv('CSV/' + oldSystemFileName + '.csv', mode='a', index=False,
+                                         encoding='windows-1250', sep=";", header=False)
 
             except AttributeError:
                 pass
 
         # wypisywanie postępów pobierania statystyk
         if index % 20 == 1:
-            print("Pobranie statystyk meczowych...", index, "/", len(searachURLsList))
+            print("Pobieranie statystyk meczowych...", index, "/", len(searachURLsList))
