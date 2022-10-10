@@ -1,0 +1,9 @@
+Temat: Analiza i wizualizacja statystyk siatkarskiach z wykorzystaniem języka Python oraz PowerBI
+Cel: Celem pracy jest stworzenie raportu z podsumowaniem najważniejszych statystyk określających skuteczność siatkarek Tauron Ligi na przestrzeni kilku ostatnich sezonów.
+
+Zakres pracy:
+1. Analiza metod wizualizacji danych
+2. Opis i metody przetwarzania danych na potrzeby Buisness Intelligence oraz opis używanych w pracy technologii
+3. Napisanie skryptu pobierającego dane z Internetu oraz zaprojektowanie struktury przechowywanych plików i utworzenie z nich bazy danych
+4. Wybranie określonych statystyk, które będą używane w raporcie
+5. Projekt i wykonanie interfejsu graficznego raportu

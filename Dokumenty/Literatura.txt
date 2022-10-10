@@ -1,0 +1,6 @@
+Zasady gry w siatkówkę - w raporcie chciałbym umieścić niektóre statysyki, które mogą wymagać wytłumaczenia. Idelanym rozwiązaniem będzie umieszczecnie konkretnych definicji zawartych w Przepisach gry w piłkę siatkową w Polsce.
+
+Dokumentacja języka Python oraz bibliotek z których będę korzystał, dokumentacja PowerBI - w pracy poświęcę rozdział na opis technologii z których korzystam. Najlepszym źródłem wiedzy o ich działaniu jest skorzystanie z oficjalnej dokumentacji
+
+Web Scraping with Python. Collecting More Data from the Modern Web - podszkolenie informacji z dziedziny webscrappingu oraz zdobycie nowych informacji
+
