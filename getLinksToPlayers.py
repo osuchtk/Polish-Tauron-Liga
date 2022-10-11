@@ -6,10 +6,11 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 
-def getLastnamePhotoLinks(searchURL, filename):
+def getPlayers(searchURL, filename):
     linksAll = []
     photoLinks = []
     playernameList = []
+    playerProfileList = []
     season = []
     for i in searchURL:
         page = urlopen(i)
@@ -30,11 +31,13 @@ def getLastnamePhotoLinks(searchURL, filename):
             imgData = str(link).split('"', 11)
             photoLinks.append(imgData[9])
             playernameList.append(imgData[3])
+            profileLink = "https://www.tauronliga.pl/players/id/" + str(link).split('"', 11)[1].split("/")[3]
+            playerProfileList.append(profileLink)
 
 
-    df = pd.DataFrame(data = [playernameList, photoLinks, season])
-    df = df.T
-    df.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+    data = pd.DataFrame(data = [playernameList, photoLinks, season, playerProfileList])
+    data = data.T
+    data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
 
     # ZAPISANIE LINKÓW DO PLIKÓW TEKSTOWYCH W CELU WERYFIKACJI
@@ -49,3 +52,4 @@ def getLastnamePhotoLinks(searchURL, filename):
     #         f.write("\n")
 
     print("Pobrano nazwiska zawodniczek, linki do indywidualnych profilów zawodniczek oraz zdjęć.")
+    return data
