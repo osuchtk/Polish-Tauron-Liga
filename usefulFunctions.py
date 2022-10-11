@@ -45,11 +45,11 @@ def prepareCSV_surnamePhotos(filename):
 def prepareCSV_newSystem(filename):
     df = pd.DataFrame(columns = ["I", "II", "III", "IV", "V", "GS", # Set
                                  "suma", "BP", "z-s", # Punkty
-                                 "Liczba", "bł", "as", "eff%", # Zagrywka
-                                 "liczba", "bł1", "poz%", "perf%", # Przyjęcie zagrywki
-                                 "liczba1", "bł2", "blok", "Pkt", "skut%", "eff%1", # Atak
+                                 "Liczba", "błędy zagrywka", "as", "eff%", # Zagrywka
+                                 "liczba", "błędy przyjęcie", "poz%", "perf%", # Przyjęcie zagrywki
+                                 "liczba1", "błędy atak", "blok", "Pkt", "skut%", "eff%1", # Atak
                                  "pkt", "wyblok", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon"# Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza" # Inne
                                  ])
 
     #try:
@@ -64,11 +64,11 @@ def prepareCSV_newSystem(filename):
 
 def prepareCSV_oldSystem(fileName):
     df = pd.DataFrame(columns = ["I", "II", "III", "IV", "V", "Punkty", # punkty - sety
-                                 "Liczba", "as", "bł", "Asy na set", # Zagrywka
-                                 "liczba", "bł1", "Neg", "Poz", "poz%", "Perf", "perf%", # Przyjęcie zagrywki
-                                 "liczba1", "bł2", "blok", "Perf1", "% perf", # Atak
+                                 "Liczba", "as", "błędy zagrywka", "Asy na set", # Zagrywka
+                                 "liczba", "błędy przyjęcie", "Neg", "Poz", "poz%", "Perf", "perf%", # Przyjęcie zagrywki
+                                 "liczba1", "błędy atak", "blok", "Perf1", "% perf", # Atak
                                  "pkt", "Pkt na set", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon" # Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza" # Inne
                                  ])
 
     #try:

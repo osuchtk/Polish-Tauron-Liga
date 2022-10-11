@@ -8,7 +8,6 @@ from urllib.request import urlopen
 
 def getLastnamePhotoLinks(searchURL, filename):
     linksAll = []
-    linksValid = []
     photoLinks = []
     playernameList = []
     season = []
@@ -49,4 +48,4 @@ def getLastnamePhotoLinks(searchURL, filename):
     #         f.write(str(link))
     #         f.write("\n")
 
-    print("Pobrano nazwiska zawodniczek,linki do indywidualnych profilów zawodniczek oraz zdjęć.")
+    print("Pobrano nazwiska zawodniczek, linki do indywidualnych profilów zawodniczek oraz zdjęć.")

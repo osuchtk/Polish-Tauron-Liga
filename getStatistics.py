@@ -2,6 +2,7 @@
 ### POBRANIE TABEL ZE STATYSTYKAMI #####################################################################################
 ########################################################################################################################
 import pandas as pd
+
 import os
 
 # funkcja przyjmuje indeks (0, 1) - jest to indeks tabeli zespołu który nas interesuje: 0 -> pierwszy od góry, 1 - drugi od góry
@@ -12,14 +13,8 @@ def getStats(index, soup, systemVersion):
     data = []
 
     # tworzenie unikalnego klucza z daty spotkania, drużyn oraz wyniku
-    # iteracja po linkach w danym meczu
-    teams = []
-    for match in soup.findAll('a'):
-        if "/teams/id/" in str(match.get('href')):
-            teams.append(match.text)
-
-    team1 = teams[0]
-    team2 = teams[3]
+    team1 = str(soup.select(".col-xs-4.col-sm-3.tablecell")[0]).split(">", 5)[3].split("<")[0]
+    team2 = str(soup.select(".col-xs-4.col-sm-3.tablecell")[1]).split(">", 5)[3].split("<")[0]
 
     resultGeneral = soup.select('.gameresult')[-1].text.replace('\n', '')
     result1 = resultGeneral[0]
@@ -32,6 +27,13 @@ def getStats(index, soup, systemVersion):
     # dodanie wartości sezonu
     season = matchDate.split(',')[0].split('.', 2)[2]
     seasonValue = str(season) + "/" + str(int(season) + 1)
+
+    # dodanie informacji o kolejce meczu i fazie rozgrywek
+    stageTable = str(soup.select(".right-left.spacced")[0]).split('</td>', 10)[1].split(">", 2)[2].split("<")[0]
+
+    # mecze w fazie play-off nie mają terminu (kolejki) tylko sam numer meczu; mecze w fazie zasadniczej mają termin
+    round = str(soup.select(".right-left.spacced")[0]).split('</td>', 10)[3].split(">", 2)[2].split("<")[0]
+
 
     ####################################################################################################################
     # BEZPOŚREDNIE STATYSTYKI
@@ -85,11 +87,20 @@ def getStats(index, soup, systemVersion):
             keyList = []
             matchDateList = []
             seasonList = []
+            stageList = []
+            roundList = []
             for i in range(len(allData)):
-                clubList.append(team1)
+                # wybór drużyny oparty na indeksie
+                if index == 0:
+                    clubList.append(team1)
+                else:
+                    clubList.append(team2)
+
                 keyList.append(key)
                 matchDateList.append(matchDate)
                 seasonList.append(seasonValue)
+                stageList.append(stageTable)
+                roundList.append(round)
 
             # dodanie do statystyk nazwisk zawodniczek, klubu oraz daty spotkania
             allData.insert(len(allData.columns), 'Nazwisko', surnames)
@@ -97,6 +108,8 @@ def getStats(index, soup, systemVersion):
             allData.insert(len(allData.columns), 'Klucz', keyList)
             allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
             allData.insert(len(allData.columns), 'Sezon', seasonList)
+            allData.insert(len(allData.columns), 'Runda', stageList)
+            allData.insert(len(allData.columns), 'Kolejka', roundList)
 
             return allData
 
@@ -144,11 +157,20 @@ def getStats(index, soup, systemVersion):
             keyList = []
             matchDateList = []
             seasonList = []
+            stageList = []
+            roundList = []
             for i in range(len(allData)):
-                clubList.append(team1)
+                # wybór drużyny oparty na indeksie
+                if index == 0:
+                    clubList.append(team1)
+                else:
+                    clubList.append(team2)
+
                 keyList.append(key)
                 matchDateList.append(matchDate)
                 seasonList.append(seasonValue)
+                stageList.append(stageTable)
+                roundList.append(round)
 
             # dodanie do statystyk nazwisk zawodniczek, klubu oraz daty spotkania
             allData.insert(len(allData.columns), 'Nazwisko', surnames)
@@ -156,6 +178,8 @@ def getStats(index, soup, systemVersion):
             allData.insert(len(allData.columns), 'Klucz', keyList)
             allData.insert(len(allData.columns), 'Data Spotkania', matchDateList)
             allData.insert(len(allData.columns), 'Sezon', seasonList)
+            allData.insert(len(allData.columns), 'Runda', stageList)
+            allData.insert(len(allData.columns), 'Kolejka', roundList)
 
             return allData
 
