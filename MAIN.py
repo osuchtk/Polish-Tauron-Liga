@@ -2,7 +2,7 @@ import time
 
 from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
-from usefulFunctions import playerListLinks, matchesListLinks, prepareCSV_playerInfo,\
+from usefulFunctions import makeCSVFolder, playerListLinks, matchesListLinks, prepareCSV_playerInfo,\
     prepareCSV_players, prepareCSV_newSystem, prepareCSV_oldSystem
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformations
@@ -14,11 +14,14 @@ timeStart = time.time()
 start = 2018
 end = 2021
 
-# deklaracja nzaw plików przekazywanych do funkcji
+# stworzenie folderu na pliki csv
+makeCSVFolder()
+
+# deklaracja nazw plików przekazywanych do stworzenia
 getPlayersFilename = "playerList"
 getPlayerInfoFilename = "playerInfo"
-oldSystemFileName = "statystyki_SEZONY_STARE"
-newSystemFileName = "statystyki_SEZONY_NOWE"
+oldSystemFileName = "stats_OLD_SEASONS"
+newSystemFileName = "stats_NEW_SEASONS"
 
 # pobranie stron z linkami do profilów zawodniczek
 playerListLinksURLs = playerListLinks(start, end)
@@ -50,5 +53,5 @@ stats = scrapStatiscics(links, newSystemFileName, oldSystemFileName)
 
 # koniec pomiaru czasu w celach statystycznych
 timeEnd = time.time()
-czas = timeEnd - timeStart
-print("Czas wykonywania: ", czas, 'sekund')
+timeTotal = timeEnd - timeStart
+print("\nCzas wykonywania: ", timeTotal, 'sekund')

@@ -9,15 +9,19 @@ import pandas as pd
 def getInformations(dataframe, filename):
     playersProfileLink = dataframe[3]
 
+    clubList = []
     birthDateList = []
     positionList = []
     heightList = []
     weightList = []
     rangeList = []
     linkList = []
-    for link in playersProfileLink:
+    for index, link in enumerate(playersProfileLink):
         page = urlopen(link)
         soup = BeautifulSoup(page, "lxml")
+
+        # pobranie informacji o klubie
+        club = str(soup.select(".playerteamname")).split("<", 6)[3].split(">")[1]
 
         # pobranie danych o dacie urodzenia i pozycji
         birthDate = str(soup.select(".datainfo.small")[0]).split("<", 4)[2].split(">")[1]
@@ -29,6 +33,7 @@ def getInformations(dataframe, filename):
         range = str(soup.select(".datainfo.text-center")[2]).split("<", 4)[2].split(">")[1]
 
         # dodanie danych do list
+        clubList.append(club)
         birthDateList.append(birthDate)
         positionList.append(position)
         heightList.append(height)
@@ -36,8 +41,9 @@ def getInformations(dataframe, filename):
         rangeList.append(range)
         linkList.append(link)
 
-    data = pd.DataFrame(data=[birthDateList, positionList, heightList, weightList, rangeList, linkList])
+    data = pd.DataFrame(data=[clubList, birthDateList, positionList, heightList, weightList, rangeList, linkList])
     data = data.T
+    data.fillna(0, inplace=True)
     data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
     print("Pobrano podstawowe informacje na temat zawodniczek.")

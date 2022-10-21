@@ -2,6 +2,8 @@
 ### PLIK Z FUNKCJAMI ###################################################################################################
 ########################################################################################################################
 import pandas as pd
+import os
+import shutil
 
 # lista linków do pobierania list zawodniczek
 def playerListLinks(start, end):
@@ -42,7 +44,7 @@ def prepareCSV_players(filename):
 
 # nagłówki do pliku z informacjami o zawodniczkach
 def prepareCSV_playerInfo(filename):
-    df = pd.DataFrame(columns = ["Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg", "Link"])
+    df = pd.DataFrame(columns = ["Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg", "Link"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
@@ -62,7 +64,7 @@ def prepareCSV_newSystem(filename):
                                  "liczba", "błędy przyjęcie", "poz%", "perf%", # Przyjęcie zagrywki
                                  "liczba1", "błędy atak", "blok", "Pkt", "skut%", "eff%1", # Atak
                                  "pkt", "wyblok", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza" # Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza", "Kolejka" # Inne
                                  ])
 
     #try:
@@ -81,7 +83,7 @@ def prepareCSV_oldSystem(fileName):
                                  "liczba", "błędy przyjęcie", "Neg", "Poz", "poz%", "Perf", "perf%", # Przyjęcie zagrywki
                                  "liczba1", "błędy atak", "blok", "Perf1", "% perf", # Atak
                                  "pkt", "Pkt na set", # Blok
-                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza" # Inne
+                                 "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza", "Kolejka" # Inne
                                  ])
 
     #try:
@@ -94,5 +96,11 @@ def prepareCSV_oldSystem(fileName):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
-
+# tworzenie folderu na csvki
+def makeCSVFolder():
+    try:
+        os.mkdir("./TestFolder")
+    except FileExistsError:
+        shutil.rmtree("./TestFolder")
+        os.mkdir("./TestFolder")
 
