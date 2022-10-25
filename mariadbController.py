@@ -6,6 +6,7 @@ import sys
 import pandas as pd
 import mariaDBCredentials
 
+
 def connectToDatabase():
     # próba zalogowania do MariaDB
     try:
@@ -53,8 +54,9 @@ def readCSVFiles():
     playerInfoData = pd.read_csv("./CSV/playerInfo.csv", sep = ';', low_memory = False, encoding='windows-1250')
     statsOld = pd.read_csv("./CSV/stats_OLD_SEASONS.csv", sep = ';', low_memory = False, encoding='windows-1250')
     statsNew = pd.read_csv("./CSV/stats_NEW_SEASONS.csv", sep = ';', low_memory = False, encoding='windows-1250')
+    standings = pd.read_csv("./CSV/standings.csv", sep = ';', low_memory = False, encoding='windows-1250')
 
-    return playerListData, playerInfoData, statsOld, statsNew
+    return playerListData, playerInfoData, statsOld, statsNew, standings
 
 
 def createTablePlayrList(conn, cur, playerListData):
@@ -159,5 +161,22 @@ def createTableStatsNew(conn, cur, statsNew):
 
     print("Załadowano do bazy danych plik z nowym systemem statystyk.")
 
+
+def createTableStandings(conn, cur, standings):
+    # tworzenie tabeli na podstawie pliku standings
+    try:
+        # utworzenie tabeli z odpowiednimi kolumnami
+        cur.execute("CREATE TABLE standings (Pozycja VARCHAR(3) NOT NULL, Klub VARCHAR(255) NOT NULL,"
+                    "Sezon VARCHAR(20) NOT NULL, Logo VARCHAR(255) NOT NULL)")
+
+    except mariadb.OperationalError:
+        pass
+
+    # zapisanie danych do bazy danych
+    for _, row in standings.iterrows():
+        cur.execute("INSERT INTO siatkowka.standings VALUES (%s, %s, %s, %s)", tuple(row))
+        conn.commit()
+
+    print("Załadowano do bazy danych plik standings.")
 
 #cur.execute("DROP DATABASE SIATKOWKA")

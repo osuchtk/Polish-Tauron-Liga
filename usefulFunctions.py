@@ -12,7 +12,8 @@ def playerListLinks(start, end):
 
     searchURLs = []
     for year in period:
-        searchURLs.append("https://www.tauronliga.pl/statsPlayers/tournament_1/{}.html?memo=%7B%22players%22%3A%7B%22mainFilter%22%3A%22letter%22%2C%22subFilter%22%3A%22all%22%7D%7D".format(year))
+        searchURLs.append("https://www.tauronliga.pl/statsPlayers/tournament_1/{}.html?memo=%7B%22players%22%3A%7B%22"
+                          "mainFilter%22%3A%22letter%22%2C%22subFilter%22%3A%22all%22%7D%7D".format(year))
 
     return searchURLs
 
@@ -29,6 +30,18 @@ def matchesListLinks(start, end):
     return searchURLs
 
 
+# linki do końcowych klasyfikacji sezonów
+def standingsLinks(start, end):
+    period = range(start, end + 1, 1)
+    period = list(period)
+
+    searchURLs = []
+    for year in period:
+        searchURLs.append("https://www.tauronliga.pl/table/tour/{}.html".format(year))
+
+    return searchURLs
+
+
 # nagłówki do pliku z nazwiskami i linkami do zdjęć zawodniczek
 def prepareCSV_players(filename):
     df = pd.DataFrame(columns = ["Nazwisko", "Zdjęcie", "Sezon", "Profil"])
@@ -41,6 +54,7 @@ def prepareCSV_players(filename):
     #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
     #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
 
 # nagłówki do pliku z informacjami o zawodniczkach
 def prepareCSV_playerInfo(filename):
@@ -92,6 +106,19 @@ def prepareCSV_oldSystem(fileName):
 
     #except FileExistsError:
     #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV ze statystykami w starym systemie.")
+    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
+    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+
+def prepareCSV_standings(filename):
+    df = pd.DataFrame(columns = ["Pozycja", "Klub", "Sezon", "Logo"])
+
+    #try:
+    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+    #except FileExistsError:
+    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
     #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
