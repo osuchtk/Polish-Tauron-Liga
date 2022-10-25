@@ -6,6 +6,8 @@ from usefulFunctions import makeCSVFolder, playerListLinks, matchesListLinks, pr
     prepareCSV_players, prepareCSV_newSystem, prepareCSV_oldSystem
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformations
+from mariadbController import connectToDatabase, readCSVFiles, createTablePlayrList, createTablePlayrInfo,\
+    createTableStatsOld, createTableStatsNew
 
 # początek pomiaru czasu w celach statystycznych
 timeStart = time.time()
@@ -47,8 +49,17 @@ links = getMatchesLinks(matchesListLinksURLs)
 prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
 
-# bezpośrednie pobieranie statystyk meczowych i ich zapis do plików
+# bezpośrednie pobieranie statystyk meczowych
 stats = scrapStatiscics(links, newSystemFileName, oldSystemFileName)
+
+
+# zapisanie plików do bazy danych
+conn, cur = connectToDatabase()
+playerList, playerInfo, statsOld, statsNew = readCSVFiles()
+createTablePlayrList(conn, cur, playerList)
+createTablePlayrInfo(conn, cur, playerInfo)
+createTableStatsOld(conn, cur, statsOld)
+createTableStatsNew(conn, cur, statsNew)
 
 
 # koniec pomiaru czasu w celach statystycznych
