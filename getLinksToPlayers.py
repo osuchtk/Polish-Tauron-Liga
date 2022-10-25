@@ -34,7 +34,6 @@ def getPlayers(searchURL, filename):
             profileLink = "https://www.tauronliga.pl/players/id/" + str(link).split('"', 11)[1].split("/")[3]
             playerProfileList.append(profileLink)
 
-
     data = pd.DataFrame(data = [playernameList, photoLinks, season, playerProfileList])
     data = data.T
     data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)

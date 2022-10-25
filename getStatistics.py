@@ -2,7 +2,6 @@
 ### POBRANIE TABEL ZE STATYSTYKAMI #####################################################################################
 ########################################################################################################################
 import pandas as pd
-
 import os
 
 # funkcja przyjmuje indeks (0, 1) - jest to indeks tabeli zespołu który nas interesuje: 0 -> pierwszy od góry, 1 - drugi od góry
