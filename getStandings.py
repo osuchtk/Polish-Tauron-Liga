@@ -58,3 +58,6 @@ def getStandings(searchURL, filename):
         data = pd.DataFrame(data = [standingNumberList, clubNamesStandindList, seasonList, clubLogoLinkList])
         data = data.T
         data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
+
+        print("Zakończono pobieranie pozycji zespołów na koniec sezonów.")
+
