@@ -22,7 +22,7 @@ def connectToDatabase():
     # utworzenie odpowiedniej bazy
     try:
         cur.execute("CREATE DATABASE SIATKOWKA")
-    except mariadb.OperationalError:
+    except mariadb.ProgrammingError:
         pass
 
     # zalogowanie do nowo utworzonej bazy danych
