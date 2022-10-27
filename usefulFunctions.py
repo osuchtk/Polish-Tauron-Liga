@@ -58,7 +58,8 @@ def prepareCSV_players(filename):
 
 # nagłówki do pliku z informacjami o zawodniczkach
 def prepareCSV_playerInfo(filename):
-    df = pd.DataFrame(columns = ["Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg", "Link"])
+    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasieg",
+                                 "Profil", "Zdjecie"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
@@ -69,6 +70,14 @@ def prepareCSV_playerInfo(filename):
     #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
+
+# nagłówki do pliku z informacjami o meczach
+def prepareCSV_matchesInfo(filename):
+    df = pd.DataFrame(columns=["Druzyna A", "Druzyna B", "Wynik A", "Wynik B", "Data meczu", "Klucz", "Sezon"])
+
+    # try:
+    #    print("Stworzono szkielet pliku CSV z informacjami o meczach.")
+    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 # nagłówki do plików z bezpośrednimi statystykami
 def prepareCSV_newSystem(filename):
@@ -126,8 +135,8 @@ def prepareCSV_standings(filename):
 # tworzenie folderu na csvki
 def makeCSVFolder():
     try:
-        os.mkdir("./TestFolder")
+        os.mkdir("./CSV")
     except FileExistsError:
-        shutil.rmtree("./TestFolder")
-        os.mkdir("./TestFolder")
+        shutil.rmtree("./CSV")
+        os.mkdir("./CSV")
 

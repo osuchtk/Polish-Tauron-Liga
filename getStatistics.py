@@ -20,8 +20,14 @@ def getStats(index, soup, systemVersion):
     result2 = resultGeneral[-1]
 
     matchDate = soup.select('.date')[-1].text
+    matchDate = matchDate.replace("\r", "")
+    matchDate = matchDate.replace("\n", "")
+    matchDate = matchDate.replace("\t", "")
 
     key = matchDate[:-7] + team1 + "-" + result1 + ":" + result2 + "-" + team2
+    key = key.replace("\r", "")
+    key = key.replace("\n", "")
+    key = key.replace("\t", "")
 
     # dodanie wartości sezonu
     season = matchDate.split(',')[0].split('.', 2)[2]

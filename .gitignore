@@ -11,3 +11,8 @@ __pycache__/getStandings.cpython-38.pyc
 __pycache__/usefulFunctions.cpython-38.pyc
 __pycache__/getStatistics.cpython-38.pyc
 __pycache__/getLinksToPlayers.cpython-38.pyc
+__pycache__/getPlayerInfo.cpython-38.pyc
+*.pyc
+__pycache__/getPlayerInfo.cpython-38.pyc
+__pycache__/getStatistics.cpython-38.pyc
+__pycache__/usefulFunctions.cpython-38.pyc

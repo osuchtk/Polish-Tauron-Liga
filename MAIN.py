@@ -3,14 +3,15 @@ import time
 from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerListLinks, matchesListLinks, standingsLinks, prepareCSV_playerInfo,\
-    prepareCSV_players, prepareCSV_newSystem, prepareCSV_oldSystem, prepareCSV_standings
+    prepareCSV_matchesInfo, prepareCSV_players, prepareCSV_newSystem, prepareCSV_oldSystem, prepareCSV_standings
+from getMatchesInfo import getMatches
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformations
 from getStandings import getStandings
-from mariadbController import connectToDatabase, readCSVFiles, createTablePlayrList, createTablePlayrInfo,\
-    createTableStatsOld, createTableStatsNew, createTableStandings
+from mariadbController import connectToDatabase, readCSVFiles, createTablePlayrList, createTablePlayerInfo,\
+    createTableMatchesInfo, createTableStatsOld, createTableStatsNew, createTableStandings
 
-# początek pomiaru czasu w celach statystycznych
+# początek pomiaru czasu
 timeStart = time.time()
 
 # deklaracja przedziału czasowego dla którego pobierane są dane
@@ -18,7 +19,7 @@ start = 2018
 end = 2021
 
 # stworzenie folderu na pliki csv
-makeCSVFolder()
+#makeCSVFolder()
 
 # deklaracja nazw plików przekazywanych do stworzenia
 getPlayersFilename = "playerList"
@@ -26,6 +27,7 @@ getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
 standingsFileName = "standings"
+matchesInfoFileName = "matchesInfo"
 
 # pobranie stron z linkami do profilów zawodniczek
 playerListLinksURLs = playerListLinks(start, end)
@@ -46,7 +48,10 @@ getInformations(players, getPlayerInfoFilename)
 # pobranie linków do wszystkich meczy w zadanym przedziale czasowym
 links = getMatchesLinks(matchesListLinksURLs)
 
-
+# pobranie informacji o meczach w formie klucz, data, sezon, drużyna A, drużyna B, wynik
+prepareCSV_matchesInfo(matchesInfoFileName)
+getMatches(links, matchesInfoFileName)
+#
 # przygotowanie nagłówków do pliku ze statystykami
 prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
@@ -62,16 +67,17 @@ getStandings(standingsLinksURLs, standingsFileName)
 
 # zapisanie plików do bazy danych
 conn, cur = connectToDatabase()
-playerList, playerInfo, statsOld, statsNew, standings = readCSVFiles()
+playerList, playerInfo, statsOld, statsNew, standings, matchesInfo = readCSVFiles()
 createTablePlayrList(conn, cur, playerList)
-createTablePlayrInfo(conn, cur, playerInfo)
+createTablePlayerInfo(conn, cur, playerInfo)
 createTableStatsOld(conn, cur, statsOld)
 createTableStatsNew(conn, cur, statsNew)
 createTableStandings(conn, cur, standings)
+createTableMatchesInfo(conn, cur, matchesInfo)
 
 
 
-# koniec pomiaru czasu w celach statystycznych
+# koniec pomiaru czasu
 timeEnd = time.time()
 timeTotal = timeEnd - timeStart
 print("\nCzas wykonywania: ", timeTotal, 'sekund')
