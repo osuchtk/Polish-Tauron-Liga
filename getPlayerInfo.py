@@ -38,6 +38,12 @@ def getInformations(dataframe, filename):
         weight = str(soup.select(".datainfo.text-center")[1]).split("<", 4)[2].split(">")[1]
         range = str(soup.select(".datainfo.text-center")[2]).split("<", 4)[2].split(">")[1]
 
+        # dodanie wartości sezonu
+        try:
+            season = str(soup.select(".btn.btn-default.listlike")).split("Sezon")[1].split("<")[0]
+        except IndexError:
+            season = str(soup.select(".btn.btn-default.dropdown-toggle.form-control")).split("Sezon")[1].split("<")[0]
+
         # dodanie danych do list
         nameList.append(name)
         clubList.append(club)
@@ -48,6 +54,7 @@ def getInformations(dataframe, filename):
         rangeList.append(range)
         linkList.append(link)
         photoList.append(playersPhotoLink[index])
+        seasonList.append(season)
 
     data = pd.DataFrame(data=[nameList, clubList, birthDateList, positionList, heightList, weightList,
                               rangeList, linkList, photoList, seasonList])

@@ -8,7 +8,7 @@ import os
 # funkcja przyjmuje link do danego spotkania
 # funkcja przyjmuje wartość string: "new" lub "old", który określa system tworzenia statystyk
 # zwracany jest wypełniony dataframe dla jednego z klubów, które rozgrywały dany mecz
-def getStats(index, soup, systemVersion):
+def getStats(index, soup, systemVersion, matchesInfoFileName):
     data = []
 
     # tworzenie unikalnego klucza z daty spotkania, drużyn oraz wyniku
@@ -32,6 +32,12 @@ def getStats(index, soup, systemVersion):
     # dodanie wartości sezonu
     season = matchDate.split(',')[0].split('.', 2)[2]
     seasonValue = str(season) + "/" + str(int(season) + 1)
+
+    # zapisania informacji do pliku o informacji o meczach
+    matchInfodf = pd.DataFrame(data=[team1, team2, result1, result2, matchDate, key, seasonValue])
+    matchInfodf = matchInfodf.T
+    matchInfodf = matchInfodf.drop_duplicates()
+    matchInfodf.to_csv('CSV/' + matchesInfoFileName + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
     # dodanie informacji o kolejce meczu i fazie rozgrywek
     stageTable = str(soup.select(".right-left.spacced")[0]).split('</td>', 10)[1].split(">", 2)[2].split("<")[0]
@@ -70,7 +76,7 @@ def getStats(index, soup, systemVersion):
             # dodanie indeksów do powtarzających się nagłówków
             temp = pd.Series(df.columns)
             df.columns = df.columns + temp.groupby(temp).cumcount().replace(0, '').astype(str)
-            #
+
             temp = pd.Series(allData.columns)
             allData.columns = allData.columns + temp.groupby(temp).cumcount().replace(0, '').astype(str)
 

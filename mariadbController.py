@@ -85,7 +85,7 @@ def createTablePlayerInfo(conn, cur, playerInfoData):
         cur.execute("CREATE TABLE playerInfo (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL,"
                     "`Data urodzenia` VARCHAR(20) NOT NULL, Pozycja VARCHAR(20) NOT NULL, Wzrost VARCHAR(10) NOT NULL,"
                     "Waga VARCHAR(10) NOT NULL, Zasieg VARCHAR(10) NOT NULL, Profil VARCHAR(255) NOT NULL,"
-                    " Zdjecie VARCHAR(255) NOT NULL, Sezon VARCHAR(20))")
+                    "Zdjecie VARCHAR(255) NOT NULL, Sezon VARCHAR(20))")
 
     except mariadb.OperationalError:
         pass

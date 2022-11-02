@@ -59,7 +59,7 @@ def prepareCSV_players(filename):
 # nagłówki do pliku z informacjami o zawodniczkach
 def prepareCSV_playerInfo(filename):
     df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasieg",
-                                 "Profil", "Zdjecie"])
+                                 "Profil", "Zdjecie", "Sezon"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")

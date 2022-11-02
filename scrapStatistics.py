@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from getStatistics import getStats
 
 
-def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
+def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, matchesInfoFileName):
     for index, i in enumerate(searachURLsList):
         i = i.rstrip('\n')
         searchURL = "https://www.tauronliga.pl/" + i
@@ -13,8 +13,8 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
 
         # pobranie statystyk dla nowego systemu
         if 'tour/2020' in i or 'tour/2021' in i:
-            statystykiZespol1 = getStats(0, soup, "new")
-            statystykiZespol2 = getStats(1, soup, "new")
+            statystykiZespol1 = getStats(0, soup, "new", matchesInfoFileName)
+            statystykiZespol2 = getStats(1, soup, "new", matchesInfoFileName)
 
             # zapisanie statystyk do pliku
             try:
@@ -28,8 +28,8 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName):
 
         # pobranie statystyk dla starego systemu
         else:
-            statystykiZespol1 = getStats(0, soup, "old")
-            statystykiZespol2 = getStats(1, soup, "old")
+            statystykiZespol1 = getStats(0, soup, "old", matchesInfoFileName)
+            statystykiZespol2 = getStats(1, soup, "old", matchesInfoFileName)
 
             # zapisanie statystyk do pliku
             try:
