@@ -29,14 +29,20 @@ def getStats(index, soup, systemVersion, matchesInfoFileName):
     key = key.replace("\n", "")
     key = key.replace("\t", "")
 
+    # dodanie wartości home lub away
+    if index == 0:
+        localisation = "H"
+    if index == 1:
+        localisation = "A"
+
+
     # dodanie wartości sezonu
     season = matchDate.split(',')[0].split('.', 2)[2]
     seasonValue = str(season) + "/" + str(int(season) + 1)
 
     # zapisania informacji do pliku o informacji o meczach
-    matchInfodf = pd.DataFrame(data=[team1, team2, result1, result2, matchDate, key, seasonValue])
+    matchInfodf = pd.DataFrame(data=[team1, team2, result1, result2, localisation, matchDate, key, seasonValue])
     matchInfodf = matchInfodf.T
-    matchInfodf = matchInfodf.drop_duplicates()
     matchInfodf.to_csv('CSV/' + matchesInfoFileName + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
     # dodanie informacji o kolejce meczu i fazie rozgrywek

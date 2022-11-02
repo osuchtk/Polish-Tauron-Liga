@@ -73,7 +73,8 @@ def prepareCSV_playerInfo(filename):
 
 # nagłówki do pliku z informacjami o meczach
 def prepareCSV_matchesInfo(filename):
-    df = pd.DataFrame(columns=["Druzyna A", "Druzyna B", "Wynik A", "Wynik B", "Data meczu", "Klucz", "Sezon"])
+    df = pd.DataFrame(columns=["Druzyna A", "Druzyna B", "Wynik A", "Wynik B", "Lokalizacja", "Data meczu",
+                               "Klucz", "Sezon"])
 
     # try:
     #    print("Stworzono szkielet pliku CSV z informacjami o meczach.")

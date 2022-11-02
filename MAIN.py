@@ -4,7 +4,6 @@ from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerListLinks, matchesListLinks, standingsLinks, prepareCSV_playerInfo,\
     prepareCSV_matchesInfo, prepareCSV_players, prepareCSV_newSystem, prepareCSV_oldSystem, prepareCSV_standings
-from getMatchesInfo import getMatches
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformations
 from getStandings import getStandings
@@ -48,18 +47,16 @@ getInformations(players, getPlayerInfoFilename)
 # pobranie linków do wszystkich meczy w zadanym przedziale czasowym
 links = getMatchesLinks(matchesListLinksURLs)
 
-# pobranie informacji o meczach w formie klucz, data, sezon, drużyna A, drużyna B, wynik
-prepareCSV_matchesInfo(matchesInfoFileName)
-getMatches(links, matchesInfoFileName)
-#
+
 # przygotowanie nagłówków do pliku ze statystykami
+prepareCSV_matchesInfo(matchesInfoFileName)
 prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
 
 # bezpośrednie pobieranie statystyk meczowych
-stats = scrapStatiscics(links, newSystemFileName, oldSystemFileName)
+stats = scrapStatiscics(links, newSystemFileName, oldSystemFileName, matchesInfoFileName)
 
-# pobranie danych odnośnie klasyfikacji zespołów na koniec seoznów
+# pobranie danych odnośnie klasyfikacji zespołów na koniec sezonów
 prepareCSV_standings(standingsFileName)
 standingsLinksURLs = standingsLinks(start, end)
 getStandings(standingsLinksURLs, standingsFileName)
