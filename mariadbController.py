@@ -103,15 +103,15 @@ def createTableMatchesInfo(conn, cur, matchesInfoData):
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
         cur.execute("CREATE TABLE matchesInfo (`Druzyna A` VARCHAR(255) NOT NULL, `Druzyna B` VARCHAR(255) NOT NULL,"
-                    "`Wynik A` VARCHAR(5) NOT NULL, `Wynik B` VARCHAR(5) NOT NULL, `Data meczu` VARCHAR(50) NOT NULL,"
-                    " Klucz VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL)")
+                    "`Wynik A` VARCHAR(5) NOT NULL, `Wynik B` VARCHAR(5) NOT NULL, Lokalizacja VARCHAR(5) NOT NULL,"
+                    "`Data meczu` VARCHAR(50) NOT NULL, Klucz VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL)")
 
     except mariadb.OperationalError:
         pass
 
     # zapisanie danych do bazy danych
     for _, row in matchesInfoData.iterrows():
-        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s, %s, %s, %s, %s)", tuple(row))
+        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
         conn.commit()
 
     print("Załadowano do bazy danych plik matchesInfo.")
