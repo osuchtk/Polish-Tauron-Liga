@@ -44,8 +44,8 @@ matchesListLinksURLs = matchesLinksList(start, end)
 
 
 # pobieranie informacji o składzie zespołu w danym sezonie
-teasLinks = prepareCSV_ClubSquadList(getSquadListFilename)
-getSquads(teasLinks, getSquadListFilename)
+prepareCSV_ClubSquadList(getSquadListFilename)
+getSquads(teamsSquadsLinksURLs, getSquadListFilename)
 
 # pobranie informacji o zawodniczkach
 prepareCSV_playersList(getPlayersFilename)

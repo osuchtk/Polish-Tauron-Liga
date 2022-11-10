@@ -21,7 +21,6 @@ def getSquads(linksList, filename):
         df = pd.DataFrame(columns = headers)
         allData = pd.DataFrame(columns = headers)
 
-
         for j in teamSquad.find_all('tr')[1:]:
             row_data = j.find_all('td')
             row = [k.text for k in row_data]
@@ -50,5 +49,6 @@ def getSquads(linksList, filename):
         del allData["Pozycja"]
 
     #return allData
+    print("Pobrano informacje o składach zaespołów w sezonach.")
     allData.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
