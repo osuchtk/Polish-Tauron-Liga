@@ -5,8 +5,12 @@ import pandas as pd
 import os
 import shutil
 
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+# PRZYGOTOWANIE LINKÓW DO POBIERANIA DANYCH
 # lista linków do pobierania list zawodniczek
-def playerListLinks(start, end):
+def playerLinksList(start, end):
     period = range(start, end + 1, 1)
     period = list(period)
 
@@ -19,7 +23,7 @@ def playerListLinks(start, end):
 
 
 # lista linków do pobierania meczów w sezonie
-def matchesListLinks(start, end):
+def matchesLinksList(start, end):
     period = range(start, end + 1, 1)
     period = list(period)
 
@@ -31,7 +35,7 @@ def matchesListLinks(start, end):
 
 
 # linki do końcowych klasyfikacji sezonów
-def standingsLinks(start, end):
+def standingsLinksList(start, end):
     period = range(start, end + 1, 1)
     period = list(period)
 
@@ -42,10 +46,48 @@ def standingsLinks(start, end):
     return searchURLs
 
 
+# linki do zespołów grających w danym sezonie
+def teamsSquadInSeasonLinksList(start, end):
+    period = range(start, end + 1, 1)
+    period = list(period)
+
+    searchURLs = []
+    for year in period:
+        searchURLs.append("https://www.tauronliga.pl/teams/tour/{}.html".format(year))
+
+    linksList = []
+    for link in searchURLs:
+        page = urlopen(link)
+        soup = BeautifulSoup(page, "lxml")
+
+        clubsLinks = soup.select(".col-sm-6.col-md-6.col-lg-4")
+
+        for _ in clubsLinks:
+            clubLink = "https://www.tauronliga.pl" + str(clubsLinks).split("href")[1].split('"')[1]
+
+            linksList.append(clubLink)
+
+    return linksList
+
+########################################################################################################################
+# NAGŁÓWKI DO PLIKÓW CSV
 # nagłówki do pliku z nazwiskami i linkami do zdjęć zawodniczek
-def prepareCSV_players(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg", "Sezon",
-                                 "Zdjęcie", "Profil", "Strona link"])
+def prepareCSV_playersList(filename):
+    df = pd.DataFrame(columns = ["Nazwisko", "Zdjęcie", "Profil"])
+
+    #try:
+    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+    #except FileExistsError:
+    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
+    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+
+# nagłówki do pliku z informacjami statycznymi o zawodniczkach
+def prepareCSV_playersInforamtions(filename):
+    df = pd.DataFrame(columns = ["Nazwisko", "Data urodzenia", "Wzrost", "Waga", "Zasięg"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
@@ -117,6 +159,20 @@ def prepareCSV_standings(filename):
     #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
     #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+
+def prepareCSV_ClubSquadList(filename):
+    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Sezon"])
+
+    #try:
+    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+    #except FileExistsError:
+    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
+    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
 
 
 # tworzenie folderu na csvki

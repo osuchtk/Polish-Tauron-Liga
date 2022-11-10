@@ -4,7 +4,7 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-from getPlayerInfo import getInformations
+from getPlayerInfo import getInformationsAboutPlayers
 
 
 def getPlayers(searchURL, filename):
@@ -35,26 +35,15 @@ def getPlayers(searchURL, filename):
             profileLink = "https://www.tauronliga.pl/players/id/" + str(link).split('"', 11)[1].split("/")[3]
             playerProfileList.append(profileLink)
 
-    clubList, birthDateList, positionList, heightList, weightList, rangeList, linksPageList = getInformations(playerProfileList)
+    # clubList, birthDateList, positionList, heightList, weightList, rangeList, linksPageList = getInformations(playerProfileList)
 
 
-    data = pd.DataFrame(data = [playernameList, clubList, birthDateList, positionList, heightList, weightList,
-                                rangeList, season, photoLinks, playerProfileList, linksPageList])
+    # data = pd.DataFrame(data = [playernameList, clubList, birthDateList, positionList, heightList, weightList,
+    #                             rangeList, season, photoLinks, playerProfileList, linksPageList])
+    data = pd.DataFrame(data = [playernameList, photoLinks, profileLink])
     data = data.T
     data.fillna(0, inplace=True)
-    data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
+    #data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
-
-    # ZAPISANIE LINKÓW DO PLIKÓW TEKSTOWYCH W CELU WERYFIKACJI
-    # with open('txtWCeluWeryfikacji/links.txt', 'w') as f:
-    #     for link in linksAll:
-    #         f.write(str(link))
-    #         f.write("\n")
-    #
-    # with open('txtWCeluWeryfikacji/photoLinks.txt', 'w') as f:
-    #     for link in photoLinks:
-    #         f.write(str(link))
-    #         f.write("\n")
-
-    print("Pobrano podstawowe informacje na temat zawodniczek.")
+    print("Pobrano listy zawodniczek.")
     return data
