@@ -7,7 +7,7 @@ from urllib.request import urlopen
 from getPlayerInfo import getInformationsAboutPlayers
 
 
-def getPlayers(searchURL, filename):
+def getPlayers(searchURL):
     linksAll = []
     photoLinks = []
     playernameList = []
@@ -40,7 +40,7 @@ def getPlayers(searchURL, filename):
 
     # data = pd.DataFrame(data = [playernameList, clubList, birthDateList, positionList, heightList, weightList,
     #                             rangeList, season, photoLinks, playerProfileList, linksPageList])
-    data = pd.DataFrame(data = [playernameList, photoLinks, profileLink])
+    data = pd.DataFrame(data = [playernameList, photoLinks, playerProfileList])
     data = data.T
     data.fillna(0, inplace=True)
     #data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)

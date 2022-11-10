@@ -26,7 +26,7 @@ end = 2021
 
 # deklaracja nazw plików przekazywanych do stworzenia
 getSquadListFilename = "teamsSquads"
-getPlayersFilename = "playerList"
+#getPlayersFilename = "playerList"
 getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
@@ -48,11 +48,12 @@ prepareCSV_ClubSquadList(getSquadListFilename)
 getSquads(teamsSquadsLinksURLs, getSquadListFilename)
 
 # pobranie informacji o zawodniczkach
-prepareCSV_playersList(getPlayersFilename)
-players = getPlayers(playerListLinksURLs, getPlayersFilename) # bez nazwy pliku bo nie zapiasują się same
-informations = getInformationsAboutPlayers(playerListLinksURLs, getPlayerInfoFilename) # bez nazwy pliku bo nie zapiasują się same
+#prepareCSV_playersList(getPlayersFilename)
+players = getPlayers(playerListLinksURLs)
+informations = getInformationsAboutPlayers(players)
 
 players = pd.DataFrame.join(informations, "Nazwisko", "left")
+players.to_csv('CSV/' + getPlayerInfoFilename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
 
 # pobranie linków do wszystkich meczy w zadanym przedziale czasowym

@@ -6,7 +6,9 @@ from urllib.request import urlopen
 import pandas as pd
 
 
-def getInformationsAboutPlayers(linksList, filename):
+def getInformationsAboutPlayers(dataframe):
+    linksList = dataframe[2]
+
     nameList = []
     birthDateList = []
     positionList = []
