@@ -44,22 +44,8 @@ def standingsLinks(start, end):
 
 # nagłówki do pliku z nazwiskami i linkami do zdjęć zawodniczek
 def prepareCSV_players(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Zdjęcie", "Sezon", "Profil"])
-
-    #try:
-    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-    #except FileExistsError:
-    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
-    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-
-# nagłówki do pliku z informacjami o zawodniczkach
-def prepareCSV_playerInfo(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasieg",
-                                 "Profil", "Zdjecie", "Sezon"])
+    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg", "Sezon",
+                                 "Zdjęcie", "Profil", "Strona link"])
 
     #try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
