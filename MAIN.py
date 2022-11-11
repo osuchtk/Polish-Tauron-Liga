@@ -26,7 +26,6 @@ end = 2021
 
 # deklaracja nazw plików przekazywanych do stworzenia
 getSquadListFilename = "teamsSquads"
-#getPlayersFilename = "playerList"
 getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
@@ -48,7 +47,6 @@ prepareCSV_ClubSquadList(getSquadListFilename)
 getSquads(teamsSquadsLinksURLs, getSquadListFilename)
 
 # pobranie informacji o zawodniczkach
-#prepareCSV_playersList(getPlayersFilename)
 players = getPlayers(playerListLinksURLs)
 informations = getInformationsAboutPlayers(players)
 
