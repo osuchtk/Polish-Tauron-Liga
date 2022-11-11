@@ -50,73 +50,33 @@ def connectToDatabase():
 
 def readCSVFiles():
     # wczytanie plików do zapisania do bazy danych
-    playerListData = pd.read_csv("./CSV/playerList.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    #playerInfoData = pd.read_csv("./CSV/playerInfo.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    playerInfo = pd.read_csv("./CSV/playerInfo.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     statsOld = pd.read_csv("./CSV/stats_OLD_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     statsNew = pd.read_csv("./CSV/stats_NEW_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     standings = pd.read_csv("./CSV/standings.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     matchesInfo = pd.read_csv("./CSV/matchesInfo.csv", sep=';', low_memory=False, encoding = 'windows-1250')
+    teamSquads = pd.read_csv("./CSV/teamsSquads.csv", sep=';', low_memory=False, encoding='windows-1250')
 
-    return playerListData, statsOld, statsNew, standings, matchesInfo
+    return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads
 
 
-def createTablePlayrList(conn, cur, playerListData):
-    # tworzenie tabeli na podstawie pliku playerList
+def createTablePlayerInfo(conn, cur, playerInfoData):
+    # tworzenie tabeli na podstawie pliku playerInfo
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE playerList (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL,"
-                    "`Data urodzenia` VARCHAR(20) NOT NULL, Pozycja VARCHAR(20) NOT NULL, Wzrost VARCHAR(10) NOT NULL,"
-                    "Waga VARCHAR(10) NOT NULL, Zasieg VARCHAR(10) NOT NULL, Sezon VARCHAR(20) NOT NULL,"
-                    "Zdjęcie VARCHAR(255) NOT NULL, Profil VARCHAR(255) NOT NULL, `Strona link` VARCHAR(255) NOT NULL)")
+        cur.execute("CREATE TABLE playerInfo (Nazwisko VARCHAR(255) NOT NULL, Zdjęcie VARCHAR(255) NOT NULL,"
+                    "Profil VARCHAR(255) NOT NULL, `Data urodzenia` VARCHAR(15) NOT NULL, Pozycja VARCHAR(20) NOT NULL,"
+                    "Wzrost VARCHAR(5) NOT NULL, Waga VARCHAR(5) NOT NULL, Zasięg VARCHAR(5) NOT NULL)")
 
     except mariadb.OperationalError:
         pass
 
     # zapisanie danych do bazy danych
-    for _, row in playerListData.iterrows():
-        cur.execute("INSERT INTO siatkowka.playerList VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
+    for _, row in playerInfoData.iterrows():
+        cur.execute("INSERT INTO siatkowka.playerInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
         conn.commit()
 
-    print("Załadowano do bazy danych plik playerList.")
-
-
-# def createTablePlayerInfo(conn, cur, playerInfoData):
-#     # tworzenie tabeli na podstawie pliku playerInfo
-#     try:
-#         # utworzenie tabeli z odpowiednimi kolumnami
-#         cur.execute("CREATE TABLE playerInfo (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL,"
-#                     "`Data urodzenia` VARCHAR(20) NOT NULL, Pozycja VARCHAR(20) NOT NULL, Wzrost VARCHAR(10) NOT NULL,"
-#                     "Waga VARCHAR(10) NOT NULL, Zasieg VARCHAR(10) NOT NULL, Profil VARCHAR(255) NOT NULL,"
-#                     "Zdjecie VARCHAR(255) NOT NULL, Sezon VARCHAR(20))")
-#
-#     except mariadb.OperationalError:
-#         pass
-#
-#     # zapisanie danych do bazy danych
-#     for _, row in playerInfoData.iterrows():
-#         cur.execute("INSERT INTO siatkowka.playerInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
-#         conn.commit()
-#
-#     print("Załadowano do bazy danych plik playerInfo.")
-
-
-def createTableMatchesInfo(conn, cur, matchesInfoData):
-    # tworzenie tabeli na podstawie pliku matchesInfo
-    try:
-        # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE matchesInfo (`Druzyna A` VARCHAR(255) NOT NULL, `Druzyna B` VARCHAR(255) NOT NULL,"
-                    "`Wynik A` VARCHAR(5) NOT NULL, `Wynik B` VARCHAR(5) NOT NULL, Lokalizacja VARCHAR(5) NOT NULL,"
-                    "`Data meczu` VARCHAR(50) NOT NULL, Klucz VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL)")
-
-    except mariadb.OperationalError:
-        pass
-
-    # zapisanie danych do bazy danych
-    for _, row in matchesInfoData.iterrows():
-        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
-        conn.commit()
-
-    print("Załadowano do bazy danych plik matchesInfo.")
+    print("Załadowano do bazy danych plik playerInfo.")
 
 
 def createTableStatsOld(conn, cur, statsOld):
@@ -201,5 +161,42 @@ def createTableStandings(conn, cur, standings):
         conn.commit()
 
     print("Załadowano do bazy danych plik standings.")
+
+
+def createTableMatchesInfo(conn, cur, matchesInfoData):
+    # tworzenie tabeli na podstawie pliku matchesInfo
+    try:
+        # utworzenie tabeli z odpowiednimi kolumnami
+        cur.execute("CREATE TABLE matchesInfo (`Druzyna A` VARCHAR(255) NOT NULL, `Druzyna B` VARCHAR(255) NOT NULL,"
+                    "`Wynik A` VARCHAR(5) NOT NULL, `Wynik B` VARCHAR(5) NOT NULL, Lokalizacja VARCHAR(5) NOT NULL,"
+                    "`Data meczu` VARCHAR(50) NOT NULL, Klucz VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL)")
+
+    except mariadb.OperationalError:
+        pass
+
+    # zapisanie danych do bazy danych
+    for _, row in matchesInfoData.iterrows():
+        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
+        conn.commit()
+
+    print("Załadowano do bazy danych plik matchesInfo.")
+
+
+def createTableSquadsInfo(conn, cur, squads):
+    # tworzenie tabeli na podstawie pliku matchesInfo
+    try:
+        # utworzenie tabeli z odpowiednimi kolumnami
+        cur.execute("CREATE TABLE teamsSquads (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL),"
+                    "Sezon VARCHAR(255) NOT NULL")
+
+    except mariadb.OperationalError:
+        pass
+
+    # zapisanie danych do bazy danych
+    for _, row in squads.iterrows():
+        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s)", tuple(row))
+        conn.commit()
+
+    print("Załadowano do bazy danych plik teamsSquads.")
 
 #cur.execute("DROP DATABASE SIATKOWKA")

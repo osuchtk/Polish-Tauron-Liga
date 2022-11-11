@@ -35,15 +35,10 @@ def getPlayers(searchURL):
             profileLink = "https://www.tauronliga.pl/players/id/" + str(link).split('"', 11)[1].split("/")[3]
             playerProfileList.append(profileLink)
 
-    # clubList, birthDateList, positionList, heightList, weightList, rangeList, linksPageList = getInformations(playerProfileList)
-
-
-    # data = pd.DataFrame(data = [playernameList, clubList, birthDateList, positionList, heightList, weightList,
-    #                             rangeList, season, photoLinks, playerProfileList, linksPageList])
     data = pd.DataFrame(data = [playernameList, photoLinks, playerProfileList])
     data = data.T
+    data.columns = ["Nazwisko", "Zdjęcie", "Profil"]
     data.fillna(0, inplace=True)
-    #data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header = False)
 
     print("Pobrano listy zawodniczek.")
     return data

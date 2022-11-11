@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def getInformationsAboutPlayers(dataframe):
-    linksList = dataframe[2]
+    linksList = dataframe["Profil"]
 
     nameList = []
     birthDateList = []
@@ -37,9 +37,9 @@ def getInformationsAboutPlayers(dataframe):
         weightList.append(weight)
         rangeList.append(range)
 
-    data = pd.DataFrame(columns = ["Nazwisko", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg"],
-                        data = [nameList, birthDateList, positionList, heightList, weightList, rangeList])
-    #data.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
-    #return nameList, birthDateList, heightList, weightList, rangeList
+    data = pd.DataFrame(data = [nameList, birthDateList, positionList, heightList, weightList, rangeList])
+    data = data.T
+    data.columns = ["Nazwisko", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg"]
+
     print("Pobrano informacje na temat zawodniczek.")
     return data

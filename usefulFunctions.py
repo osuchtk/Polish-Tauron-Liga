@@ -62,8 +62,8 @@ def teamsSquadInSeasonLinksList(start, end):
 
         clubsLinks = soup.select(".col-sm-6.col-md-6.col-lg-4")
 
-        for _ in clubsLinks:
-            clubLink = "https://www.tauronliga.pl" + str(clubsLinks).split("href")[1].split('"')[1]
+        for club in clubsLinks:
+            clubLink = "https://www.tauronliga.pl" + str(club).split("href")[1].split('"')[1]
 
             linksList.append(clubLink)
 
@@ -71,34 +71,6 @@ def teamsSquadInSeasonLinksList(start, end):
 
 ########################################################################################################################
 # NAGŁÓWKI DO PLIKÓW CSV
-# nagłówki do pliku z nazwiskami i linkami do zdjęć zawodniczek
-def prepareCSV_playersList(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Zdjęcie", "Profil"])
-
-    #try:
-    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-    #except FileExistsError:
-    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
-    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-
-# nagłówki do pliku z informacjami statycznymi o zawodniczkach
-def prepareCSV_playersInforamtions(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Data urodzenia", "Wzrost", "Waga", "Zasięg"])
-
-    #try:
-    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-    #except FileExistsError:
-    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
-    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-
 # nagłówki do pliku z informacjami o meczach
 def prepareCSV_matchesInfo(filename):
     df = pd.DataFrame(columns=["Druzyna A", "Druzyna B", "Wynik A", "Wynik B", "Lokalizacja", "Data meczu",
@@ -107,6 +79,7 @@ def prepareCSV_matchesInfo(filename):
     # try:
     #    print("Stworzono szkielet pliku CSV z informacjami o meczach.")
     return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
 
 # nagłówki do plików z bezpośrednimi statystykami
 def prepareCSV_newSystem(filename):

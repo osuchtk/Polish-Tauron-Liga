@@ -4,15 +4,15 @@ import pandas as pd
 from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerLinksList, matchesLinksList, standingsLinksList,\
-    teamsSquadInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_playersList, prepareCSV_newSystem,\
-    prepareCSV_oldSystem, prepareCSV_standings, prepareCSV_ClubSquadList
+    teamsSquadInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_newSystem, prepareCSV_oldSystem,\
+    prepareCSV_standings, prepareCSV_ClubSquadList
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformationsAboutPlayers
 from getStandings import getStandings
-from mariadbController import connectToDatabase, readCSVFiles, createTablePlayerList, createTableMatchesInfo, \
-    createTableStatsOld, createTableStatsNew, createTableStandings
-from getPlayerInfo import getInformationsAboutPlayers
+from mariadbController import connectToDatabase, readCSVFiles, createTablePlayerInfo, createTableMatchesInfo, \
+    createTableStatsOld, createTableStatsNew, createTableStandings, createTableSquadsInfo
 from getSquadsInSeason import getSquads
+
 
 # początek pomiaru czasu
 timeStart = time.time()
@@ -52,8 +52,11 @@ getSquads(teamsSquadsLinksURLs, getSquadListFilename)
 players = getPlayers(playerListLinksURLs)
 informations = getInformationsAboutPlayers(players)
 
-players = pd.DataFrame.join(informations, "Nazwisko", "left")
-players.to_csv('CSV/' + getPlayerInfoFilename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
+playersInformations = pd.merge(players, informations, "left", "Nazwisko")
+playersInformations.drop_duplicates(inplace = True)
+playersInformations.columns = ["Nazwisko", "Zdjęcie", "Profil", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg"]
+playersInformations.to_csv('CSV/' + getPlayerInfoFilename + '.csv', mode='a', index=False, encoding='windows-1250',
+                           sep=";", header=False)
 
 
 # pobranie linków do wszystkich meczy w zadanym przedziale czasowym
@@ -75,13 +78,14 @@ getStandings(standingsLinksURLs, standingsFileName)
 
 
 # zapisanie plików do bazy danych
-#conn, cur = connectToDatabase()
-#playerList, statsOld, statsNew, standings, matchesInfo = readCSVFiles()
-#createTablePlayerList(conn, cur, playerList)
-# createTableStatsOld(conn, cur, statsOld)
-# createTableStatsNew(conn, cur, statsNew)
-# createTableStandings(conn, cur, standings)
-# createTableMatchesInfo(conn, cur, matchesInfo)
+conn, cur = connectToDatabase()
+playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads = readCSVFiles()
+createTablePlayerInfo(conn, cur, playerInfo)
+createTableStatsOld(conn, cur, statsOld)
+createTableStatsNew(conn, cur, statsNew)
+createTableStandings(conn, cur, standings)
+createTableMatchesInfo(conn, cur, matchesInfo)
+createTableSquadsInfo(conn, cur, teamSquads)
 
 
 # koniec pomiaru czasu

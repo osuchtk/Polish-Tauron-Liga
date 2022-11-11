@@ -1,11 +1,12 @@
 import pandas as pd
-import numpy as np
 
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 
 def getSquads(linksList, filename):
+    allDataAppended = []
+
     for link in linksList:
         page = urlopen(link)
         soup = BeautifulSoup(page, "lxml")
@@ -48,7 +49,11 @@ def getSquads(linksList, filename):
         del allData["Numer"]
         del allData["Pozycja"]
 
+        allDataAppended.append(allData)
+
     #return allData
-    print("Pobrano informacje o składach zaespołów w sezonach.")
-    allData.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
+    allDataFinalDf = pd.concat(allDataAppended)
+
+    print("Pobrano informacje o składach zespołów w sezonach.")
+    allDataFinalDf.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
 
