@@ -25,7 +25,7 @@ def connectToDatabase():
 
     # utworzenie odpowiedniej bazy
     try:
-        cur.execute("CREATE DATABASE SIATKOWKA")
+        cur.execute("CREATE DATABASE SIATKOWKA COLLATE = 'utf8mb3_general_ci'")
     except mariadb.ProgrammingError:
         pass
 
@@ -92,7 +92,7 @@ def createTableStatsOld(conn, cur, statsOld):
                     "`Liczba atakow` INT, `Bledy atak` INT, `Blok` INT, `Atak perfekcyjny` INT,"
                     "`Atak perfekcyjny %` INT,"
                     "`Blok punkty` INT, `Pkt na set` INT,"
-                    "`Nazwisko` VARCHAR (255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
+                    "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
                     "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
                     "`Faza` VARCHAR(15) NOT NULL, `Kolejka` VARCHAR(5) NOT NULL)")
     except mariadb.OperationalError:
@@ -186,15 +186,15 @@ def createTableSquadsInfo(conn, cur, squads):
     # tworzenie tabeli na podstawie pliku matchesInfo
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE teamsSquads (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL),"
-                    "Sezon VARCHAR(255) NOT NULL")
+        cur.execute("CREATE TABLE teamsSquads (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL,"
+                    "Sezon VARCHAR(255) NOT NULL)")
 
     except mariadb.OperationalError:
         pass
 
     # zapisanie danych do bazy danych
     for _, row in squads.iterrows():
-        cur.execute("INSERT INTO siatkowka.matchesInfo VALUES (%s, %s, %s)", tuple(row))
+        cur.execute("INSERT INTO siatkowka.teamsSquads VALUES (%s, %s, %s)", tuple(row))
         conn.commit()
 
     print("Załadowano do bazy danych plik teamsSquads.")

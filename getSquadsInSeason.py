@@ -55,5 +55,6 @@ def getSquads(linksList, filename):
     allDataFinalDf = pd.concat(allDataAppended)
 
     print("Pobrano informacje o składach zespołów w sezonach.")
-    allDataFinalDf.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
+    allDataFinalDf.to_csv('CSV/' + filename + '.csv', mode='a', index=False, encoding='windows-1250', sep=";",
+                          header=False)
 

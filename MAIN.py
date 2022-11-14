@@ -22,7 +22,7 @@ start = 2018
 end = 2021
 
 # stworzenie folderu na pliki csv
-#makeCSVFolder()
+makeCSVFolder()
 
 # deklaracja nazw plików przekazywanych do stworzenia
 getSquadListFilename = "teamsSquads"
