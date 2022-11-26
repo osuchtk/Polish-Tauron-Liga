@@ -4,7 +4,7 @@ import pandas as pd
 from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerLinksList, matchesLinksList, standingsLinksList,\
-    teamsSquadInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_newSystem, prepareCSV_oldSystem,\
+    teamsInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_newSystem, prepareCSV_oldSystem,\
     prepareCSV_standings, prepareCSV_ClubSquadList
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformationsAboutPlayers
@@ -33,7 +33,7 @@ standingsFileName = "standings"
 matchesInfoFileName = "matchesInfo"
 
 # pobranie stron z linkami do składów zespołów
-teamsSquadsLinksURLs = teamsSquadInSeasonLinksList(start, end)
+teamsSquadsLinksURLs = teamsInSeasonLinksList(start, end)
 
 # pobranie stron z linkami do profilów zawodniczek
 playerListLinksURLs = playerLinksList(start, end)

@@ -22,13 +22,6 @@ def getMatchesLinks(searchURL):
 
     # wybranie unikalnych wartości
     links = Counter(links)
-    #print(len(links))
-
-    # ZAPISANIE LINKÓW DO PLIKU TEKSTOWEGO W CELU WERYFIKACJI
-    # with open('txtWCeluWeryfikacji/matchLinks_2_SEZONY.txt', 'w') as f:
-    #     for link in links:
-    #         f.write(str(link))
-    #         f.write("\n")
 
     print("Pobrano linki do wszystkich meczów zadanego przedziału.\nPobrano łącznie ", len(links), " linków do meczy.")
     return links

@@ -48,7 +48,7 @@ def standingsLinksList(start, end):
 
 
 # linki do zespołów grających w danym sezonie
-def teamsSquadInSeasonLinksList(start, end):
+def teamsInSeasonLinksList(start, end):
     period = range(start, end + 1, 1)
     period = list(period)
 

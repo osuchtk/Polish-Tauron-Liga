@@ -1,13 +1,15 @@
 ########################################################################################################################
-### POBRANIE TABEL ZE STATYSTYKAMI #####################################################################################
+# POBRANIE TABEL ZE STATYSTYKAMI #######################################################################################
 ########################################################################################################################
 import pandas as pd
-import os
 
-# funkcja przyjmuje indeks (0, 1) - jest to indeks tabeli zespołu który nas interesuje: 0 -> pierwszy od góry, 1 - drugi od góry
+# funkcja przyjmuje indeks (0, 1) - jest to indeks tabeli zespołu który nas interesuje:
+# 0 -> pierwszy od góry, 1 - drugi od góry
 # funkcja przyjmuje link do danego spotkania
 # funkcja przyjmuje wartość string: "new" lub "old", który określa system tworzenia statystyk
 # zwracany jest wypełniony dataframe dla jednego z klubów, które rozgrywały dany mecz
+
+
 def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
     data = []
 
@@ -35,7 +37,6 @@ def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
     if index == 1:
         localisation = "A"
 
-
     # dodanie wartości sezonu
     season = str(urlValue).split("/")[7].split(".")[0]
     seasonValue = str(season) + "/" + str(int(season) + 1)
@@ -43,14 +44,14 @@ def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
     # zapisania informacji do pliku o informacji o meczach
     matchInfodf = pd.DataFrame(data=[team1, team2, result1, result2, localisation, matchDate, key, seasonValue])
     matchInfodf = matchInfodf.T
-    matchInfodf.to_csv('CSV/' + matchesInfoFileName + '.csv', mode='a', index=False, encoding='windows-1250', sep=";", header=False)
+    matchInfodf.to_csv('CSV/' + matchesInfoFileName + '.csv', mode='a', index=False, encoding='windows-1250', sep=";",
+                       header=False)
 
     # dodanie informacji o kolejce meczu i fazie rozgrywek
     stageTable = str(soup.select(".right-left.spacced")[0]).split('</td>', 10)[1].split(">", 2)[2].split("<")[0]
 
     # mecze w fazie play-off nie mają terminu (kolejki) tylko sam numer meczu; mecze w fazie zasadniczej mają termin
     round = str(soup.select(".right-left.spacced")[0]).split('</td>', 10)[3].split(">", 2)[2].split("<")[0]
-
 
     ####################################################################################################################
     # BEZPOŚREDNIE STATYSTYKI
@@ -98,7 +99,6 @@ def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
             if "GS" not in allData.columns:
                 allData.insert(5, "GS", "-")
 
-
             # przygotowanie list na statystyki spoza tabeli
             clubList = []
             keyList = []
@@ -133,7 +133,7 @@ def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
         except IndexError:
             print("Mecz bez statystyk. " + key)
 
-
+    ####################################################################################################################
     # stary system statystyk przez sezonem 2020/2021
     if systemVersion == "old":
         try:
@@ -167,7 +167,6 @@ def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
                 length = len(df)
                 df.loc[length] = row
                 allData.loc[length] = row
-
 
             # przygotowanie list na statystyki spoza tabeli
             clubList = []

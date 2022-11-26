@@ -1,10 +1,9 @@
 ########################################################################################################################
-### POBRANIE NAZWISK, ZDJĘĆ I LINKÓW DO PROFILI ZAWODNICZEK ############################################################
+# POBRANIE NAZWISK, ZDJĘĆ I LINKÓW DO PROFILI ZAWODNICZEK ##############################################################
 ########################################################################################################################
 import pandas as pd
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-from getPlayerInfo import getInformationsAboutPlayers
 
 
 def getPlayers(searchURL):
@@ -20,7 +19,6 @@ def getPlayers(searchURL):
         # przeszukiwanie wszystkich linków na stronie w celu znalezienia tych, które spełniają kryteria
         for id, link in enumerate(soup.findAll('a')):
             if "/statsPlayers/id/" in str(link.get('href')):
-                # if id % 2 == 0:
                 linksAll.append(link)
 
                 if id % 2 != 0:
@@ -38,7 +36,7 @@ def getPlayers(searchURL):
     data = pd.DataFrame(data = [playernameList, photoLinks, playerProfileList])
     data = data.T
     data.columns = ["Nazwisko", "Zdjęcie", "Profil"]
-    data.fillna(0, inplace=True)
+    data.fillna(0, inplace = True)
 
     print("Pobrano listy zawodniczek.")
     return data

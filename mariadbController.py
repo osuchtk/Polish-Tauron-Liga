@@ -1,5 +1,5 @@
 ########################################################################################################################
-### KONTORLA BAZY DANYCH ###############################################################################################
+# KONTORLA BAZY DANYCH #################################################################################################
 ########################################################################################################################
 import mariadb
 import sys
@@ -54,8 +54,8 @@ def readCSVFiles():
     statsOld = pd.read_csv("./CSV/stats_OLD_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     statsNew = pd.read_csv("./CSV/stats_NEW_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
     standings = pd.read_csv("./CSV/standings.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    matchesInfo = pd.read_csv("./CSV/matchesInfo.csv", sep=';', low_memory=False, encoding = 'windows-1250')
-    teamSquads = pd.read_csv("./CSV/teamsSquads.csv", sep=';', low_memory=False, encoding='windows-1250')
+    matchesInfo = pd.read_csv("./CSV/matchesInfo.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    teamSquads = pd.read_csv("./CSV/teamsSquads.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
 
     return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads
 
@@ -198,5 +198,3 @@ def createTableSquadsInfo(conn, cur, squads):
         conn.commit()
 
     print("Załadowano do bazy danych plik teamsSquads.")
-
-#cur.execute("DROP DATABASE SIATKOWKA")
