@@ -13,8 +13,8 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, match
 
         # pobranie statystyk dla nowego systemu
         if 'tour/2020' in i or 'tour/2021' in i:
-            statystykiZespol1 = getStats(0, soup, "new", matchesInfoFileName)
-            statystykiZespol2 = getStats(1, soup, "new", matchesInfoFileName)
+            statystykiZespol1 = getStats(0, soup, "new", searchURL, matchesInfoFileName)
+            statystykiZespol2 = getStats(1, soup, "new", searchURL, matchesInfoFileName)
 
             # zapisanie statystyk do pliku
             try:
@@ -28,8 +28,8 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, match
 
         # pobranie statystyk dla starego systemu
         else:
-            statystykiZespol1 = getStats(0, soup, "old", matchesInfoFileName)
-            statystykiZespol2 = getStats(1, soup, "old", matchesInfoFileName)
+            statystykiZespol1 = getStats(0, soup, "old", searchURL, matchesInfoFileName)
+            statystykiZespol2 = getStats(1, soup, "old", searchURL, matchesInfoFileName)
 
             # zapisanie statystyk do pliku
             try:

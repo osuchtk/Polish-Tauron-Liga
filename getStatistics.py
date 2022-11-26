@@ -8,7 +8,7 @@ import os
 # funkcja przyjmuje link do danego spotkania
 # funkcja przyjmuje wartość string: "new" lub "old", który określa system tworzenia statystyk
 # zwracany jest wypełniony dataframe dla jednego z klubów, które rozgrywały dany mecz
-def getStats(index, soup, systemVersion, matchesInfoFileName):
+def getStats(index, soup, systemVersion, urlValue, matchesInfoFileName):
     data = []
 
     # tworzenie unikalnego klucza z daty spotkania, drużyn oraz wyniku
@@ -37,7 +37,7 @@ def getStats(index, soup, systemVersion, matchesInfoFileName):
 
 
     # dodanie wartości sezonu
-    season = matchDate.split(',')[0].split('.', 2)[2]
+    season = str(urlValue).split("/")[7].split(".")[0]
     seasonValue = str(season) + "/" + str(int(season) + 1)
 
     # zapisania informacji do pliku o informacji o meczach

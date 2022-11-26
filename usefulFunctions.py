@@ -8,6 +8,7 @@ import shutil
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
+########################################################################################################################
 # PRZYGOTOWANIE LINKÓW DO POBIERANIA DANYCH
 # lista linków do pobierania list zawodniczek
 def playerLinksList(start, end):
@@ -73,7 +74,7 @@ def teamsSquadInSeasonLinksList(start, end):
 # NAGŁÓWKI DO PLIKÓW CSV
 # nagłówki do pliku z informacjami o meczach
 def prepareCSV_matchesInfo(filename):
-    df = pd.DataFrame(columns=["Druzyna A", "Druzyna B", "Wynik A", "Wynik B", "Lokalizacja", "Data meczu",
+    df = pd.DataFrame(columns=["Druzyna Home", "Druzyna Away", "Wynik Home", "Wynik Away", "Lokalizacja", "Data meczu",
                                "Klucz", "Sezon"])
 
     # try:
@@ -147,8 +148,8 @@ def prepareCSV_ClubSquadList(filename):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
-
-# tworzenie folderu na csvki
+########################################################################################################################
+# TWORZENIE FOLDERU NA CSVKI
 def makeCSVFolder():
     try:
         os.mkdir("./CSV")
