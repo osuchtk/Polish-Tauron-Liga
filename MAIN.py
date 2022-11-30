@@ -54,7 +54,7 @@ playersInformations = pd.merge(players, informations, "left", "Nazwisko")
 playersInformations.drop_duplicates(inplace = True)
 playersInformations.columns = ["Nazwisko", "Zdjęcie", "Profil", "Data urodzenia", "Pozycja", "Wzrost", "Waga", "Zasięg"]
 playersInformations.to_csv('CSV/' + getPlayerInfoFilename + '.csv', mode='a', index=False, encoding='windows-1250',
-                           sep=";", header=False)
+                          sep=";", header=False)
 
 
 # pobranie linków do wszystkich meczy w zadanym przedziale czasowym

@@ -6,8 +6,7 @@ from getStatistics import getStats
 
 def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, matchesInfoFileName):
     for index, i in enumerate(searachURLsList):
-        i = i.rstrip('\n')
-        searchURL = "https://www.tauronliga.pl/" + i
+        searchURL = "https://www.tauronliga.pl" + i
         page = urlopen(searchURL)
         soup = BeautifulSoup(page, "lxml")
 

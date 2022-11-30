@@ -15,13 +15,11 @@ def getMatchesLinks(searchURL):
         # przeszukiwanie wszystkich linków na stronie w celu znalezienia tych, które spełniają kryteria
         for id, link in enumerate(soup.findAll('a')):
             if "/games/id/" in str(link.get('href')) and "#stats" not in str(link.get('href')):
-                if "11020" not in str(link.get('href')) and "11021" not in str(link.get('href')):
-                    links.append("ga" + str(link['href']).lstrip("https://www.tauronliga.pl"))
-                if "1102023" in str(link.get('href')):
-                    links.append("ga" + str(link['href']).lstrip("https://www.tauronliga.pl"))
+                if "tauronliga" not in link['href']:
+                    links.append(link['href'])
 
     # wybranie unikalnych wartości
-    links = Counter(links)
+    links = list(Counter(links))
 
     print("Pobrano linki do wszystkich meczów zadanego przedziału.\nPobrano łącznie ", len(links), " linków do meczy.")
     return links
