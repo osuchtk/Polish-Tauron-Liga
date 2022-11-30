@@ -4,14 +4,15 @@ from bs4 import BeautifulSoup
 from getStatistics import getStats
 
 
-def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, matchesInfoFileName):
-    for index, i in enumerate(searachURLsList):
+def scrapStatiscics(searchURLsList, newSystemFileName, oldSystemFileName, matchesInfoFileName):
+    for index, i in enumerate(searchURLsList):
         searchURL = "https://www.tauronliga.pl" + i
         page = urlopen(searchURL)
         soup = BeautifulSoup(page, "lxml")
 
+        value = str(i).split("/")[5].split(".")[0]
         # pobranie statystyk dla nowego systemu
-        if 'tour/2020' in i or 'tour/2021' in i:
+        if value > 2019:
             statystykiZespol1 = getStats(0, soup, "new", searchURL, matchesInfoFileName)
             statystykiZespol2 = getStats(1, soup, "new", searchURL, matchesInfoFileName)
 
@@ -42,4 +43,4 @@ def scrapStatiscics(searachURLsList, newSystemFileName, oldSystemFileName, match
 
         # wypisywanie postępów pobierania statystyk
         if index % 20 == 1:
-            print("Pobieranie statystyk meczowych...", index, "/", len(searachURLsList))
+            print("Pobieranie statystyk meczowych...", index, "/", len(searchURLsList))
