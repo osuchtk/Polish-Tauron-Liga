@@ -48,16 +48,18 @@ def connectToDatabase():
     return conn, cur
 
 
-def readCSVFiles():
+def readCSVFiles(SquadListFilename, PlayerInfoFilename, oldSystemFileName, newSystemFileName, standingsFileName,
+                 matchesInfoFileName, combinedStats):
     # wczytanie plików do zapisania do bazy danych
-    playerInfo = pd.read_csv("./CSV/playerInfo.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    statsOld = pd.read_csv("./CSV/stats_OLD_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    statsNew = pd.read_csv("./CSV/stats_NEW_SEASONS.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    standings = pd.read_csv("./CSV/standings.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    matchesInfo = pd.read_csv("./CSV/matchesInfo.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    teamSquads = pd.read_csv("./CSV/teamsSquads.csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    playerInfo = pd.read_csv("./CSV/" + PlayerInfoFilename + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    statsOld = pd.read_csv("./CSV/" + oldSystemFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    statsNew = pd.read_csv("./CSV/" + newSystemFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    standings = pd.read_csv("./CSV/" + standingsFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    matchesInfo = pd.read_csv("./CSV/" + matchesInfoFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    teamSquads = pd.read_csv("./CSV/" + SquadListFilename + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    combinedStats = pd.read_csv("./CSV/" + combinedStats + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
 
-    return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads
+    return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads, combinedStats
 
 
 def createTablePlayerInfo(conn, cur, playerInfoData):
@@ -198,3 +200,35 @@ def createTableSquadsInfo(conn, cur, squads):
         conn.commit()
 
     print("Załadowano do bazy danych plik teamsSquads.")
+
+
+def createTableStatsCombined(conn, cur, statsNew):
+    # tworzenie tabeli na podstawie nowych statystyk
+    try:
+        # utworzenie tabeli z odpowiednimi kolumnami
+        cur.execute("CREATE TABLE statsNew (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
+                    " `V` VARCHAR(5), `GS` VARCHAR(2), `Suma punktow` INT"
+                    "`Liczba zagrywek` INT, `Bledy zagrywki` INT, `As` INT,"
+                    "`Liczba przyjec` INT, `Bledy przyjecie` INT, `Przyjecie pozytywne %` INT,"
+                    "`Przyjecie perfekcyjne %` INT,"
+                    "`Liczba atakow` INT, `Bledy atak` INT, `Atak zablokowany` INT, `Punkty z ataku` INT, "
+                    "`Skutecznosc ataku %` INT,"
+                    "`Punkty w bloku` INT"
+                    "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
+                    "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
+                    "`Faza` VARCHAR(15) NOT NULL, `Kolejka` VARCHAR(5) NOT NULL)")
+
+    except mariadb.OperationalError:
+        pass
+
+    # zapisanie danych do bazy danych
+    for _, row in statsNew.iterrows():
+        cur.execute("INSERT INTO siatkowka.statsNew VALUES (%s, %s, %s, %s, %s, %s, %d,"
+                    "%d, %d, %d,"
+                    "%d, %d, %d, %d,"
+                    "%d, %d, %d, %d, %d"
+                    "%d"
+                    "%s, %s, %s, %s, %s, %s, %s)", tuple(row))
+        conn.commit()
+
+    print("Załadowano do bazy danych plik z nowym systemem statystyk.")

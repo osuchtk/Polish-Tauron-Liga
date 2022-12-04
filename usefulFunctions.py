@@ -148,6 +148,24 @@ def prepareCSV_ClubSquadList(filename):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
+def prepareCSV_combinedStats(filename):
+    df = pd.DataFrame(columns=["I", "II", "III", "IV", "V", "Punkty", # sety, punkty
+                               "Liczba zagrywek", "Błędy zagrywki", "Liczba asów", # zagrywka, dodać asy na set w daxie
+                               "Liczba przyjęć", "Błędy przyjęcia", "Przyjęcie pozytywne %", "Przyjęcie perfekcyjne %", # przyjęcie
+                               "Liczba ataków", "Błędy ataku", "Atak zablokowany", "Atak punktowy", "Skuteczność ataku %"# atak
+                               "Punkty blok" # blok; dodać punkty na set
+    ])
+
+    # try:
+    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+    # except FileExistsError:
+    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
+    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
+    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
+
+
 ########################################################################################################################
 # TWORZENIE FOLDERU NA CSVKI
 def makeCSVFolder():
