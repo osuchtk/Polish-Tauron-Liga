@@ -135,6 +135,7 @@ def prepareCSV_standings(filename):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
+# usunąć
 def prepareCSV_ClubSquadList(filename):
     df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Sezon"])
 
@@ -149,11 +150,12 @@ def prepareCSV_ClubSquadList(filename):
 
 
 def prepareCSV_combinedStats(filename):
-    df = pd.DataFrame(columns=["I", "II", "III", "IV", "V", "Punkty", # sety, punkty
+    df = pd.DataFrame(columns=["I", "II", "III", "IV", "V", "GS", "Punkty", # sety, punkty
                                "Liczba zagrywek", "Błędy zagrywki", "Liczba asów", # zagrywka, dodać asy na set w daxie
                                "Liczba przyjęć", "Błędy przyjęcia", "Przyjęcie pozytywne %", "Przyjęcie perfekcyjne %", # przyjęcie
                                "Liczba ataków", "Błędy ataku", "Atak zablokowany", "Atak punktowy", "Skuteczność ataku %"# atak
-                               "Punkty blok" # blok; dodać punkty na set
+                               "Punkty blok", # blok; dodać punkty na set
+                               "Nazwisko", "Klub", "Klucz", "Data spotkania", "Sezon", "Faza", "Kolejka" # pozostałe
     ])
 
     # try:

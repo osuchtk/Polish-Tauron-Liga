@@ -11,11 +11,11 @@ def connectToDatabase():
     # próba zalogowania do MariaDB
     try:
         conn = mariadb.connect(
-            user = mariaDBCredentials.user,
-            password = mariaDBCredentials.password,
-            host = mariaDBCredentials.host,
-            port = mariaDBCredentials.port,
-            database = "sys"
+            user=mariaDBCredentials.user,
+            password=mariaDBCredentials.password,
+            host=mariaDBCredentials.host,
+            port=mariaDBCredentials.port,
+            database="sys"
         )
     except mariadb.Error:
         print("Błąd łączenia z bazą danych")
@@ -32,11 +32,11 @@ def connectToDatabase():
     # zalogowanie do nowo utworzonej bazy danych
     try:
         conn = mariadb.connect(
-            user = mariaDBCredentials.user,
-            password = mariaDBCredentials.password,
-            host = mariaDBCredentials.host,
-            port = mariaDBCredentials.port,
-            database = "siatkowka"
+            user=mariaDBCredentials.user,
+            password=mariaDBCredentials.password,
+            host=mariaDBCredentials.host,
+            port=mariaDBCredentials.port,
+            database="siatkowka"
         )
 
     except mariadb.Error:
@@ -51,13 +51,20 @@ def connectToDatabase():
 def readCSVFiles(SquadListFilename, PlayerInfoFilename, oldSystemFileName, newSystemFileName, standingsFileName,
                  matchesInfoFileName, combinedStats):
     # wczytanie plików do zapisania do bazy danych
-    playerInfo = pd.read_csv("./CSV/" + PlayerInfoFilename + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    statsOld = pd.read_csv("./CSV/" + oldSystemFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    statsNew = pd.read_csv("./CSV/" + newSystemFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    standings = pd.read_csv("./CSV/" + standingsFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    matchesInfo = pd.read_csv("./CSV/" + matchesInfoFileName + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    teamSquads = pd.read_csv("./CSV/" + SquadListFilename + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
-    combinedStats = pd.read_csv("./CSV/" + combinedStats + ".csv", sep = ';', low_memory = False, encoding = 'windows-1250')
+    playerInfo = pd.read_csv("./CSV/" + PlayerInfoFilename + ".csv", sep=';', low_memory=False,
+                             encoding='windows-1250')
+    statsOld = pd.read_csv("./CSV/" + oldSystemFileName + ".csv", sep=';', low_memory=False,
+                           encoding='windows-1250')
+    statsNew = pd.read_csv("./CSV/" + newSystemFileName + ".csv", sep=';', low_memory=False,
+                           encoding='windows-1250')
+    standings = pd.read_csv("./CSV/" + standingsFileName + ".csv", sep=';', low_memory=False,
+                            encoding='windows-1250')
+    matchesInfo = pd.read_csv("./CSV/" + matchesInfoFileName + ".csv", sep=';', low_memory=False,
+                              encoding='windows-1250')
+    teamSquads = pd.read_csv("./CSV/" + SquadListFilename + ".csv", sep=';', low_memory=False,
+                             encoding='windows-1250')
+    combinedStats = pd.read_csv("./CSV/" + combinedStats + ".csv", sep=';', low_memory=False,
+                                encoding='windows-1250')
 
     return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads, combinedStats
 
@@ -123,8 +130,8 @@ def createTableStatsNew(conn, cur, statsNew):
                     "`Liczba zagrywek` INT, `Bledy zagrywki` INT, `As` INT, `Efektywność zagrywki %%` INT,"
                     "`Liczba przyjec zgrywki` INT, `Bledy przyjecie` INT, `Przyjecie pozytywne %` INT,"
                     "`Przyjecie perfekcyjne` INT,"
-                    "`Liczba atakow` INT, `Bledy atak` INT, `Blok` INT, `Punkty z ataku` INT, `Skutecznosc ataku %` INT,"
-                    "`Efektywnosc ataku` INT,"
+                    "`Liczba atakow` INT, `Bledy atak` INT, `Blok` INT, `Punkty z ataku` INT,"
+                    "`Skutecznosc ataku %` INT, `Efektywnosc ataku` INT,"
                     "`Punkty w bloku` INT, `Wyblok` INT,"
                     "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
                     "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
@@ -184,6 +191,7 @@ def createTableMatchesInfo(conn, cur, matchesInfoData):
     print("Załadowano do bazy danych plik matchesInfo.")
 
 
+# do usunięcia
 def createTableSquadsInfo(conn, cur, squads):
     # tworzenie tabeli na podstawie pliku matchesInfo
     try:
@@ -202,18 +210,18 @@ def createTableSquadsInfo(conn, cur, squads):
     print("Załadowano do bazy danych plik teamsSquads.")
 
 
-def createTableStatsCombined(conn, cur, statsNew):
+def createTableStatsCombined(conn, cur, combinedStats):
     # tworzenie tabeli na podstawie nowych statystyk
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE statsNew (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
-                    " `V` VARCHAR(5), `GS` VARCHAR(2), `Suma punktow` INT"
+        cur.execute("CREATE TABLE combinedStats (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
+                    " `V` VARCHAR(5), `GS` VARCHAR(2), `Suma punktow` INT,"
                     "`Liczba zagrywek` INT, `Bledy zagrywki` INT, `As` INT,"
                     "`Liczba przyjec` INT, `Bledy przyjecie` INT, `Przyjecie pozytywne %` INT,"
                     "`Przyjecie perfekcyjne %` INT,"
                     "`Liczba atakow` INT, `Bledy atak` INT, `Atak zablokowany` INT, `Punkty z ataku` INT, "
                     "`Skutecznosc ataku %` INT,"
-                    "`Punkty w bloku` INT"
+                    "`Punkty w bloku` INT,"
                     "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
                     "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
                     "`Faza` VARCHAR(15) NOT NULL, `Kolejka` VARCHAR(5) NOT NULL)")
@@ -222,13 +230,13 @@ def createTableStatsCombined(conn, cur, statsNew):
         pass
 
     # zapisanie danych do bazy danych
-    for _, row in statsNew.iterrows():
-        cur.execute("INSERT INTO siatkowka.statsNew VALUES (%s, %s, %s, %s, %s, %s, %d,"
+    for _, row in combinedStats.iterrows():
+        cur.execute("INSERT INTO siatkowka.combinedStats VALUES (%s, %s, %s, %s, %s, %s, %d,"
                     "%d, %d, %d,"
                     "%d, %d, %d, %d,"
-                    "%d, %d, %d, %d, %d"
-                    "%d"
+                    "%d, %d, %d, %d, %d,"
+                    "%d,"
                     "%s, %s, %s, %s, %s, %s, %s)", tuple(row))
         conn.commit()
 
-    print("Załadowano do bazy danych plik z nowym systemem statystyk.")
+    print("Załadowano do bazy danych plik z poączonymi statystykami.")

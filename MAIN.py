@@ -5,13 +5,12 @@ from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerLinksList, matchesLinksList, standingsLinksList,\
     teamsInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_newSystem, prepareCSV_oldSystem,\
-    prepareCSV_standings, prepareCSV_ClubSquadList, prepareCSV_combinedStats
+    prepareCSV_standings, prepareCSV_combinedStats
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformationsAboutPlayers
 from getStandings import getStandings
 from mariadbController import connectToDatabase, readCSVFiles, createTablePlayerInfo, createTableMatchesInfo, \
     createTableStatsOld, createTableStatsNew, createTableStandings, createTableSquadsInfo, createTableStatsCombined
-from getSquadsInSeason import getSquads
 from combineStatistics import combineStats
 
 
@@ -23,10 +22,10 @@ start = 2013
 end = 2021
 
 # stworzenie folderu na pliki csv
-makeCSVFolder()
+#makeCSVFolder()
 
 # deklaracja nazw plików przekazywanych do stworzenia
-getSquadListFilename = "teamsSquads"
+getSquadListFilename = "teamsSquads" # do usuniecia
 getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
@@ -45,7 +44,7 @@ matchesListLinksURLs = matchesLinksList(start, end)
 
 
 # przygotowanie plików csv
-prepareCSV_ClubSquadList(getSquadListFilename)
+#prepareCSV_ClubSquadList(getSquadListFilename) # usunąć
 prepareCSV_matchesInfo(matchesInfoFileName)
 prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
@@ -54,7 +53,7 @@ prepareCSV_combinedStats(combinedStats)
 
 
 # pobieranie informacji o składzie zespołu w danym sezonie
-getSquads(teamsSquadsLinksURLs, getSquadListFilename)
+#getSquads(teamsSquadsLinksURLs, getSquadListFilename) # usunąć
 
 # pobranie informacji o zawodniczkach
 players = getPlayers(playerListLinksURLs)
@@ -91,7 +90,7 @@ createTableStatsOld(conn, cur, statsOld)
 createTableStatsNew(conn, cur, statsNew)
 createTableStandings(conn, cur, standings)
 createTableMatchesInfo(conn, cur, matchesInfo)
-createTableSquadsInfo(conn, cur, teamSquads)
+# createTableSquadsInfo(conn, cur, teamSquads) # do usunięcia
 createTableStatsCombined(conn, cur, combinedStatistics)
 
 
