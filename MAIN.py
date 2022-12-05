@@ -44,16 +44,11 @@ matchesListLinksURLs = matchesLinksList(start, end)
 
 
 # przygotowanie plików csv
-#prepareCSV_ClubSquadList(getSquadListFilename) # usunąć
 prepareCSV_matchesInfo(matchesInfoFileName)
 prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
 prepareCSV_standings(standingsFileName)
 prepareCSV_combinedStats(combinedStats)
-
-
-# pobieranie informacji o składzie zespołu w danym sezonie
-#getSquads(teamsSquadsLinksURLs, getSquadListFilename) # usunąć
 
 # pobranie informacji o zawodniczkach
 players = getPlayers(playerListLinksURLs)
@@ -90,7 +85,6 @@ createTableStatsOld(conn, cur, statsOld)
 createTableStatsNew(conn, cur, statsNew)
 createTableStandings(conn, cur, standings)
 createTableMatchesInfo(conn, cur, matchesInfo)
-# createTableSquadsInfo(conn, cur, teamSquads) # do usunięcia
 createTableStatsCombined(conn, cur, combinedStatistics)
 
 

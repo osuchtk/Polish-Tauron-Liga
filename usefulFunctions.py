@@ -135,20 +135,6 @@ def prepareCSV_standings(filename):
     #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
 
 
-# usunąć
-def prepareCSV_ClubSquadList(filename):
-    df = pd.DataFrame(columns = ["Nazwisko", "Klub", "Sezon"])
-
-    #try:
-    #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    return df.to_csv('CSV/' + filename + '.csv', mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-    #except FileExistsError:
-    #    print("Plik istnieje. Usuwam\nStworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")
-    #    os.remove("D:/Naukowe/WI_ZUT/Praca Inżynierska/CSV/" + nazwaPliku + ".csv")
-    #    return df.to_csv('CSV/' + nazwaPliku, mode='x', index=False, encoding='windows-1250', sep=";", header=True)
-
-
 def prepareCSV_combinedStats(filename):
     df = pd.DataFrame(columns=["I", "II", "III", "IV", "V", "GS", "Punkty", # sety, punkty
                                "Liczba zagrywek", "Błędy zagrywki", "Liczba asów", # zagrywka, dodać asy na set w daxie

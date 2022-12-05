@@ -191,25 +191,6 @@ def createTableMatchesInfo(conn, cur, matchesInfoData):
     print("Załadowano do bazy danych plik matchesInfo.")
 
 
-# do usunięcia
-def createTableSquadsInfo(conn, cur, squads):
-    # tworzenie tabeli na podstawie pliku matchesInfo
-    try:
-        # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE teamsSquads (Nazwisko VARCHAR(255) NOT NULL, Klub VARCHAR(255) NOT NULL,"
-                    "Sezon VARCHAR(255) NOT NULL)")
-
-    except mariadb.OperationalError:
-        pass
-
-    # zapisanie danych do bazy danych
-    for _, row in squads.iterrows():
-        cur.execute("INSERT INTO siatkowka.teamsSquads VALUES (%s, %s, %s)", tuple(row))
-        conn.commit()
-
-    print("Załadowano do bazy danych plik teamsSquads.")
-
-
 def createTableStatsCombined(conn, cur, combinedStats):
     # tworzenie tabeli na podstawie nowych statystyk
     try:
