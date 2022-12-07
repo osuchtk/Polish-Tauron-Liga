@@ -5,13 +5,14 @@ from getLinksToPlayers import getPlayers
 from getLinksToMatches import getMatchesLinks
 from usefulFunctions import makeCSVFolder, playerLinksList, matchesLinksList, standingsLinksList,\
     teamsInSeasonLinksList, prepareCSV_matchesInfo, prepareCSV_newSystem, prepareCSV_oldSystem,\
-    prepareCSV_standings, prepareCSV_combinedStats
+    prepareCSV_standings, prepareCSV_combinedStats, prepareCSV_clubInfo
 from scrapStatistics import scrapStatiscics
 from getPlayerInfo import getInformationsAboutPlayers
 from getStandings import getStandings
 from mariadbController import connectToDatabase, readCSVFiles, createTablePlayerInfo, createTableMatchesInfo, \
-    createTableStatsOld, createTableStatsNew, createTableStandings, createTableSquadsInfo, createTableStatsCombined
+    createTableStatsOld, createTableStatsNew, createTableStandings, createTableStatsCombined, createTableClubInfo
 from combineStatistics import combineStats
+from getInfoAboutTeam import getInfo
 
 
 # początek pomiaru czasu
@@ -25,7 +26,7 @@ end = 2021
 #makeCSVFolder()
 
 # deklaracja nazw plików przekazywanych do stworzenia
-getSquadListFilename = "teamsSquads" # do usuniecia
+getClubInfoFilename = "clubInfo"
 getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
@@ -49,6 +50,11 @@ prepareCSV_oldSystem(oldSystemFileName)
 prepareCSV_newSystem(newSystemFileName)
 prepareCSV_standings(standingsFileName)
 prepareCSV_combinedStats(combinedStats)
+prepareCSV_clubInfo(getClubInfoFilename)
+
+
+# pobranie informacji o klubie
+getInfo(teamsSquadsLinksURLs, getClubInfoFilename)
 
 # pobranie informacji o zawodniczkach
 players = getPlayers(playerListLinksURLs)
@@ -77,15 +83,16 @@ getStandings(standingsLinksURLs, standingsFileName)
 
 # zapisanie plików do bazy danych
 conn, cur = connectToDatabase()
-playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads, combinedStatistics = \
-    readCSVFiles(getSquadListFilename, getPlayerInfoFilename, oldSystemFileName, newSystemFileName,
-                 standingsFileName, matchesInfoFileName, combinedStats)
+playerInfo, statsOld, statsNew, standings, matchesInfo, clubInfo, combinedStatistics = \
+    readCSVFiles(getClubInfoFilename, getPlayerInfoFilename, oldSystemFileName, newSystemFileName, standingsFileName,
+                 matchesInfoFileName, combinedStats)
 createTablePlayerInfo(conn, cur, playerInfo)
 createTableStatsOld(conn, cur, statsOld)
 createTableStatsNew(conn, cur, statsNew)
 createTableStandings(conn, cur, standings)
 createTableMatchesInfo(conn, cur, matchesInfo)
 createTableStatsCombined(conn, cur, combinedStatistics)
+createTableClubInfo(conn, cur, clubInfo)
 
 
 # koniec pomiaru czasu

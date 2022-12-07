@@ -48,7 +48,7 @@ def connectToDatabase():
     return conn, cur
 
 
-def readCSVFiles(SquadListFilename, PlayerInfoFilename, oldSystemFileName, newSystemFileName, standingsFileName,
+def readCSVFiles(clubInfoFilename, PlayerInfoFilename, oldSystemFileName, newSystemFileName, standingsFileName,
                  matchesInfoFileName, combinedStats):
     # wczytanie plików do zapisania do bazy danych
     playerInfo = pd.read_csv("./CSV/" + PlayerInfoFilename + ".csv", sep=';', low_memory=False,
@@ -61,12 +61,12 @@ def readCSVFiles(SquadListFilename, PlayerInfoFilename, oldSystemFileName, newSy
                             encoding='windows-1250')
     matchesInfo = pd.read_csv("./CSV/" + matchesInfoFileName + ".csv", sep=';', low_memory=False,
                               encoding='windows-1250')
-    teamSquads = pd.read_csv("./CSV/" + SquadListFilename + ".csv", sep=';', low_memory=False,
-                             encoding='windows-1250')
+    clubInfo = pd.read_csv("./CSV/" + clubInfoFilename + ".csv", sep=';', low_memory=False,
+                           encoding='windows-1250')
     combinedStats = pd.read_csv("./CSV/" + combinedStats + ".csv", sep=';', low_memory=False,
                                 encoding='windows-1250')
 
-    return playerInfo, statsOld, statsNew, standings, matchesInfo, teamSquads, combinedStats
+    return playerInfo, statsOld, statsNew, standings, matchesInfo, clubInfo, combinedStats
 
 
 def createTablePlayerInfo(conn, cur, playerInfoData):
@@ -192,7 +192,7 @@ def createTableMatchesInfo(conn, cur, matchesInfoData):
 
 
 def createTableStatsCombined(conn, cur, combinedStats):
-    # tworzenie tabeli na podstawie nowych statystyk
+    # tworzenie tabeli na podstawie połączonych statystyk
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
         cur.execute("CREATE TABLE combinedStats (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
@@ -221,3 +221,23 @@ def createTableStatsCombined(conn, cur, combinedStats):
         conn.commit()
 
     print("Załadowano do bazy danych plik z poączonymi statystykami.")
+
+
+def createTableClubInfo(conn, cur, clubInfo):
+    # tworzenie tabeli na podstawie pliku clubInfo
+    try:
+        # utworzenie tabeli z odpowiednimi kolumnami
+        cur.execute("CREATE TABLE clubInfo (Klub VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL,"
+                    "Adres VARCHAR(255), Prezes VARCHAR(255), Wiceprezes VARCHAR(255),"
+                    "Manager VARCHAR(255), `Pierwszy trener` VARCHAR(255),"
+                    "`Drugi trener` VARCHAR(255))")
+
+    except mariadb.OperationalError:
+        pass
+
+    # zapisanie danych do bazy danych
+    for _, row in clubInfo.iterrows():
+        cur.execute("INSERT INTO siatkowka.clubInfo VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", tuple(row))
+        conn.commit()
+
+    print("Załadowano do bazy danych plik clubInfo.")
