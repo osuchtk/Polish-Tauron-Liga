@@ -3,19 +3,29 @@ Projekt inżynierski - Analiza i wizualizacja statystyk siatkarskich / Engineeri
 
 My main goal was to download and visualize volleyball statistics. In order to do this I scraped data from Tauron Liga websites. I used data about players, team standings and typical match statictics. All informations is saved in csv files and then uploaded to my local  MariaDB database. In Power BI I connect to my database and prepare visualization.
 
-##List of scripts
-
+## List of scripts
 usefulFunctions - creating headers for csv files and folders
+
 getLinkToMatches - gather links to all matches in season
+
 getLinksToPlayers - gather list of players in season, their photos and profile link
+
 getInfoAboutTeam - gather informations about  club, e.g. coach, management, etc.
+
 getPlayerInfo - scraping informations about position, date of birth, etc using link to profile
+
 getStatistics - scraping tables with match statistics
+
 scrapStatistics - wrapper for getStatictisc, which contains info about new or old statictisc system 
+
 combineStatistics - combine new and old statistics system so Power BI can handle it
+
 getStandings - gather informations about clubs standings at the end of the season
+
 mariabdController - read and upload files to database 
+
 MAIN - wrapper for all functions
+
 
 
 ## Report
