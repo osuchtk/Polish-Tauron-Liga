@@ -27,3 +27,5 @@ __pycache__/getPlayerInfo.cpython-38.pyc
 __pycache__/usefulFunctions.cpython-38.pyc
 __pycache__/usefulFunctions.cpython-38.pyc
 ./__pychache__/*
+.idea/
+__pycache__/
