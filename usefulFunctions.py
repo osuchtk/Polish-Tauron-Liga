@@ -157,7 +157,7 @@ def prepareCSV_combinedStats(filename):
 
 def prepareCSV_clubInfo(filename):
     df = pd.DataFrame(columns=["Klub", "Sezon", "Adres", "Prezes", "Wiceprezs", "Manager", "Pierwszy trener",
-                               "Drugi trener"])
+                               "Pozostali trenerzy"])
 
     # try:
     #    print("Stworzono szkielet pliku CSV z nazwiskami i linkami do zdjęć.")

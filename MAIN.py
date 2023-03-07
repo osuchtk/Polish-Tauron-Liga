@@ -26,7 +26,7 @@ end = 2021
 #makeCSVFolder()
 
 # deklaracja nazw plików przekazywanych do stworzenia
-getClubInfoFilename = "clubInfo"
+getClubInfoFilename = "clubInfoTest"
 getPlayerInfoFilename = "playerInfo"
 oldSystemFileName = "stats_OLD_SEASONS"
 newSystemFileName = "stats_NEW_SEASONS"
@@ -45,11 +45,11 @@ matchesListLinksURLs = matchesLinksList(start, end)
 
 
 # przygotowanie plików csv
-prepareCSV_matchesInfo(matchesInfoFileName)
-prepareCSV_oldSystem(oldSystemFileName)
-prepareCSV_newSystem(newSystemFileName)
-prepareCSV_standings(standingsFileName)
-prepareCSV_combinedStats(combinedStats)
+# prepareCSV_matchesInfo(matchesInfoFileName)
+# prepareCSV_oldSystem(oldSystemFileName)
+# prepareCSV_newSystem(newSystemFileName)
+# prepareCSV_standings(standingsFileName)
+# prepareCSV_combinedStats(combinedStats)
 prepareCSV_clubInfo(getClubInfoFilename)
 
 

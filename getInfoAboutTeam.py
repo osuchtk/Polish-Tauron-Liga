@@ -44,16 +44,16 @@ def getInfo(linksList, filename):
             firstCoach = ""
 
         try:
-            secondCoach = str(soup).split("Drugi trener:")[1].split(">")[1].split("<")[0]
+            otherCoaches = str(soup).split("Drugi trener:")[1].split(">")[1].split("<")[0]
         except IndexError:
-            secondCoach = ""
+            otherCoaches = ""
 
         infoDataframe = pd.DataFrame(data=[teamName, seasonValue, clubAddress, ceo, viceCeo, teamManager, firstCoach,
-                                           secondCoach]).transpose()
-        infoDataframe.replace("\r", "")
-        infoDataframe.replace("\n", "")
-        infoDataframe.replace("\t", "")
-        infoDataframe.replace("\xa0", "")
+                                           otherCoaches]).transpose()
+        infoDataframe.replace("\r", "", regex = True, inplace= True)
+        infoDataframe.replace("\n", "", regex = True, inplace= True)
+        infoDataframe.replace("\t", "", regex = True, inplace= True)
+        infoDataframe.replace("\xa0", "", regex = True, inplace= True)
 
         allDataAppended.append(infoDataframe)
 

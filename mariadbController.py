@@ -94,11 +94,11 @@ def createTableStatsOld(conn, cur, statsOld):
         # utworzenie tabeli z odpowiednimi kolumnami
         cur.execute("CREATE TABLE statsOld (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
                     "`V` VARCHAR(5), `Punkty` INT,"
-                    "`Liczba zagrywek` INT, `As` INT, `Bledy zagrywki` INT, `Asy na set` INT,"
-                    "`Liczba przyjec zgrywki` INT, `Bledy przyjecie` INT, `Przyjecie negatywne` INT,"
-                    "`Przyjecie pozytywne` INT, `Przyjecie pozytywne %` INT, `Przyjecie perfekcyjne` INT,"
-                    "`Przyjecie perfekcyjne %` INT,"
-                    "`Liczba atakow` INT, `Bledy atak` INT, `Blok` INT, `Atak perfekcyjny` INT,"
+                    "`Liczba zagrywek` INT, `As` INT, `Błędy zagrywki` INT, `Asy na set` INT,"
+                    "`Liczba przyjęć zgrywki` INT, `Błędy przyjęcie` INT, `Przyjęcie negatywne` INT,"
+                    "`Przyjęcie pozytywne` INT, `Przyjęcie pozytywne %` INT, `Przyjęcie perfekcyjne` INT,"
+                    "`Przyjęcie perfekcyjne %` INT,"
+                    "`Liczba ataków` INT, `Błędy atak` INT, `Blok` INT, `Atak perfekcyjny` INT,"
                     "`Atak perfekcyjny %` INT,"
                     "`Blok punkty` INT, `Pkt na set` INT,"
                     "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
@@ -127,11 +127,11 @@ def createTableStatsNew(conn, cur, statsNew):
         cur.execute("CREATE TABLE statsNew (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
                     " `V` VARCHAR(5), `GS` VARCHAR(2),"
                     "`Suma` INT, `BP` INT, `z-s` INT,"
-                    "`Liczba zagrywek` INT, `Bledy zagrywki` INT, `As` INT, `Efektywność zagrywki %%` INT,"
-                    "`Liczba przyjec zgrywki` INT, `Bledy przyjecie` INT, `Przyjecie pozytywne %` INT,"
-                    "`Przyjecie perfekcyjne` INT,"
-                    "`Liczba atakow` INT, `Bledy atak` INT, `Blok` INT, `Punkty z ataku` INT,"
-                    "`Skutecznosc ataku %` INT, `Efektywnosc ataku` INT,"
+                    "`Liczba zagrywek` INT, `Błędy zagrywki` INT, `As` INT, `Efektywność zagrywki %%` INT,"
+                    "`Liczba przyjęć zgrywki` INT, `Błędy przyjecie` INT, `Przyjęcie pozytywne %` INT,"
+                    "`Przyjęcie perfekcyjne` INT,"
+                    "`Liczba ataków` INT, `Błędy atak` INT, `Blok` INT, `Punkty z ataku` INT,"
+                    "`Skuteczność ataku %` INT, `Efektywność ataku` INT,"
                     "`Punkty w bloku` INT, `Wyblok` INT,"
                     "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
                     "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
@@ -176,7 +176,7 @@ def createTableMatchesInfo(conn, cur, matchesInfoData):
     # tworzenie tabeli na podstawie pliku matchesInfo
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
-        cur.execute("CREATE TABLE matchesInfo (`Druzyna A` VARCHAR(255) NOT NULL, `Druzyna B` VARCHAR(255) NOT NULL,"
+        cur.execute("CREATE TABLE matchesInfo (`Drużyna A` VARCHAR(255) NOT NULL, `Drużyna B` VARCHAR(255) NOT NULL,"
                     "`Wynik A` VARCHAR(5) NOT NULL, `Wynik B` VARCHAR(5) NOT NULL, Lokalizacja VARCHAR(5) NOT NULL,"
                     "`Data meczu` VARCHAR(50) NOT NULL, Klucz VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL)")
 
@@ -196,12 +196,12 @@ def createTableStatsCombined(conn, cur, combinedStats):
     try:
         # utworzenie tabeli z odpowiednimi kolumnami
         cur.execute("CREATE TABLE combinedStats (`I` VARCHAR(5), `II` VARCHAR(5), `III` VARCHAR(5), `IV` VARCHAR(5),"
-                    " `V` VARCHAR(5), `GS` VARCHAR(2), `Suma punktow` INT,"
-                    "`Liczba zagrywek` INT, `Bledy zagrywki` INT, `As` INT,"
-                    "`Liczba przyjec` INT, `Bledy przyjecie` INT, `Przyjecie pozytywne %` INT,"
-                    "`Przyjecie perfekcyjne %` INT,"
-                    "`Liczba atakow` INT, `Bledy atak` INT, `Atak zablokowany` INT, `Punkty z ataku` INT, "
-                    "`Skutecznosc ataku %` INT,"
+                    " `V` VARCHAR(5), `GS` VARCHAR(5), `Suma punktow` INT,"
+                    "`Liczba zagrywek` INT, `Błędy zagrywki` INT, `As` INT,"
+                    "`Liczba przyjęć` INT, `Błędy przyjęcie` INT, `Przyjęcie pozytywne %` INT,"
+                    "`Przyjęcie perfekcyjne %` INT,"
+                    "`Liczba ataków` INT, `Błędy atak` INT, `Atak zablokowany` INT, `Punkty z ataku` INT, "
+                    "`Skuteczność ataku %` INT,"
                     "`Punkty w bloku` INT,"
                     "`Nazwisko` VARCHAR(255) NOT NULL, `Klub` VARCHAR(255) NOT NULL, `Klucz` VARCHAR(255) NOT NULL,"
                     "`Data spotkania` VARCHAR(20) NOT NULL, `Sezon` VARCHAR(20) NOT NULL,"
@@ -230,7 +230,7 @@ def createTableClubInfo(conn, cur, clubInfo):
         cur.execute("CREATE TABLE clubInfo (Klub VARCHAR(255) NOT NULL, Sezon VARCHAR(20) NOT NULL,"
                     "Adres VARCHAR(255), Prezes VARCHAR(255), Wiceprezes VARCHAR(255),"
                     "Manager VARCHAR(255), `Pierwszy trener` VARCHAR(255),"
-                    "`Drugi trener` VARCHAR(255))")
+                    "`Pozostali trenerzy` VARCHAR(255))")
 
     except mariadb.OperationalError:
         pass
